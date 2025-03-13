@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
@@ -14,6 +14,7 @@
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
+    "@prisma/client": "^6.5.0",
     "@radix-ui/react-select": "^2.1.6",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.5.2",
@@ -25,11 +26,19 @@
     "react-icons": "^5.0.1"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "^20.17.24",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.16",
+    "@typescript-eslint/eslint-plugin": "^8.26.1",
+    "@typescript-eslint/parser": "^8.26.1",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.16",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "prettier": "^3.5.3",
     "typescript": "^5"
   }
 }
