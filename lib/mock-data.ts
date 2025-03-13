@@ -1,3 +1,4 @@
+// filepath: c:\Projects\ANMI\anmi-denim\lib\mock-data.ts
 // Mock product data
 export const products = [
   {
@@ -5,7 +6,7 @@ export const products = [
     name: "Classic Denim Jeans",
     description: "Premium quality classic denim jeans with perfect fit and exceptional durability.",
     price: 89.99,
-    image: "/placeholder.svg?height=400&width=600",
+    image: "/classic.png",
     category: "Jeans",
     featured: true
   },
@@ -14,7 +15,7 @@ export const products = [
     name: "Denim Jacket",
     description: "Stylish denim jacket with modern design, perfect for casual and semi-formal occasions.",
     price: 129.99,
-    image: "/placeholder.svg?height=400&width=600",
+    image: "/jacket.png",
     category: "Jackets",
     featured: true
   },
@@ -23,7 +24,7 @@ export const products = [
     name: "Denim Skirt",
     description: "Versatile denim skirt that combines comfort with contemporary fashion trends.",
     price: 69.99,
-    image: "/placeholder.svg?height=400&width=600",
+    image: "/skirt.png",
     category: "Skirts",
     featured: true
   },
@@ -32,7 +33,7 @@ export const products = [
     name: "Slim Fit Jeans",
     description: "Modern slim fit jeans with stretch fabric for maximum comfort and style.",
     price: 94.99,
-    image: "/placeholder.svg?height=400&width=600",
+    image: "/slim.png",
     category: "Jeans",
     featured: false
   },
@@ -41,7 +42,7 @@ export const products = [
     name: "Denim Shirt",
     description: "Classic denim shirt that works great for casual and smart casual outfits.",
     price: 79.99,
-    image: "/placeholder.svg?height=400&width=600",
+    image: "/shirt.png",
     category: "Shirts",
     featured: false
   },
@@ -50,7 +51,7 @@ export const products = [
     name: "Denim Overalls",
     description: "Comfortable and stylish denim overalls for a casual, relaxed look.",
     price: 109.99,
-    image: "/placeholder.svg?height=400&width=600",
+    image: "/overall.png",
     category: "Overalls",
     featured: false
   },

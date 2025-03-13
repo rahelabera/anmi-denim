@@ -53,7 +53,7 @@ export default function Navbar() {
           <Link href="/" passHref legacyBehavior>
             <Box>
               <Image
-                src="/logo.png"
+                src="/logo2.png"
                 alt="ANMI Denim Logo"
                 h="40px"
                 objectFit="contain"

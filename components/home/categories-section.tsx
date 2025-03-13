@@ -12,10 +12,10 @@ const MotionText = motion(Text)
 
 // Updated categories to focus on denim types with links to detailed pages
 const categories = [
-  { name: "Raw Denim", slug: "raw-denim" },
-  { name: "Selvage Denim", slug: "selvage-denim" },
-  { name: "Stretch Denim", slug: "stretch-denim" },
-  { name: "Acid Wash Denim", slug: "acid-wash-denim" },
+  { name: "Raw Denim", slug: "raw-denim", image: "/skirt.png" },
+  { name: "Selvage Denim", slug: "selvage-denim", image: "/shirt.png" },
+  { name: "Stretch Denim", slug: "stretch-denim", image: "/slim.png" },
+  { name: "Acid Wash Denim", slug: "acid-wash-denim", image: "/classic.png" },
 ]
 
 export default function CategoriesSection() {
@@ -64,7 +64,7 @@ export default function CategoriesSection() {
                   as="a"
                   position="relative"
                   height="250px"
-                  rounded="lg"
+                  rounded="xl" // Apply border radius to the container
                   overflow="hidden"
                   role="group"
                   whileHover={{ y: -5 }}
@@ -73,11 +73,12 @@ export default function CategoriesSection() {
                   <Box position="relative" w="100%" h="100%">
                     <MotionBox
                       as="img"
-                      src="/placeholder.svg?height=400&width=300"
+                      src={category.image}
                       alt={category.name}
                       objectFit="cover"
                       w="100%"
                       h="100%"
+                      borderRadius="xl" // Apply border radius to the image
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.5 }}
                     />
@@ -85,6 +86,7 @@ export default function CategoriesSection() {
                       position="absolute"
                       inset={0}
                       bg="blackAlpha.600"
+                      borderRadius="xl" // Apply border radius to the overlay
                       transition="background 0.3s"
                       _hover={{ bg: "blackAlpha.500" }}
                     />
@@ -109,4 +111,3 @@ export default function CategoriesSection() {
     </Box>
   )
 }
-

@@ -47,11 +47,11 @@ const products = [
     name: "Classic Raw Denim Jeans",
     category: "Raw Denim",
     price: 129.99,
-    image: "/placeholder.svg?height=600&width=400",
+    image: "/classic.png",
     images: [
-      "/placeholder.svg?height=600&width=400",
-      "/placeholder.svg?height=600&width=400",
-      "/placeholder.svg?height=600&width=400",
+      "/classic.png",
+      "/classic.png",
+      "/classic.png",
     ],
     description:
       "Our classic raw denim jeans are crafted from premium unwashed, untreated denim. These jeans start off rigid and develop unique fade patterns based on your body and lifestyle. Made with 100% cotton 14oz Japanese selvedge denim.",
@@ -72,11 +72,11 @@ const products = [
     name: "Selvage Straight Fit Jeans",
     category: "Selvage Denim",
     price: 149.99,
-    image: "/placeholder.svg?height=600&width=400",
+    image: "/slim.png",
     images: [
-      "/placeholder.svg?height=600&width=400",
-      "/placeholder.svg?height=600&width=400",
-      "/placeholder.svg?height=600&width=400",
+      "/slim.png",
+      "/slim.png",
+      "/slim.png",
     ],
     description:
       "Our selvage straight fit jeans feature premium selvage denim with a distinctive self-edge finish. These jeans offer a classic straight leg silhouette with a medium rise. Made with 13oz Japanese selvage denim with red ID.",
@@ -196,7 +196,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   w="80px"
                 >
                   <Image
-                    src={image || "/placeholder.svg"}
+                    src={image || "/classic.png"}
                     alt={`${product.name} - View ${index + 1}`}
                     objectFit="cover"
                     h="100%"

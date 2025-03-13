@@ -61,7 +61,7 @@ export default function AboutSection() {
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <MotionImage
-              src="/placeholder.svg?height=600&width=800"
+              src="/about.png"
               alt="About ANMI Denim"
               objectFit="cover"
               w="100%"

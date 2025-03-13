@@ -26,7 +26,7 @@ const newProducts: Product[] = [
   {
     id: "1",
     name: "Classic Raw Denim Jeans",
-    image: "/placeholder.svg?height=600&width=400",
+    image: "/classic.png",
     price: "$129.99",
     category: "Raw Denim",
     description: "Unwashed, untreated denim with a rigid feel and deep indigo color.",
@@ -34,7 +34,7 @@ const newProducts: Product[] = [
   {
     id: "2",
     name: "Selvage Straight Fit Jeans",
-    image: "/placeholder.svg?height=600&width=400",
+    image: "/shirt.png",
     price: "$149.99",
     category: "Selvage Denim",
     description: "Premium selvage denim with distinctive self-edge finish.",
@@ -42,7 +42,7 @@ const newProducts: Product[] = [
   {
     id: "3",
     name: "Comfort Stretch Slim Jeans",
-    image: "/placeholder.svg?height=600&width=400",
+    image: "/slim.png",
     price: "$89.99",
     category: "Stretch Denim",
     description: "Flexible denim with added elastane for maximum comfort.",
@@ -50,7 +50,7 @@ const newProducts: Product[] = [
   {
     id: "4",
     name: "Vintage Acid Wash Jeans",
-    image: "/placeholder.svg?height=600&width=400",
+    image: "/skirt.png",
     price: "$99.99",
     category: "Acid Wash Denim",
     description: "Distinctive mottled appearance created through acid washing process.",
@@ -58,7 +58,7 @@ const newProducts: Product[] = [
   {
     id: "5",
     name: "Lightweight Chambray Trousers",
-    image: "/placeholder.svg?height=600&width=400",
+    image: "/overall.png",
     price: "$79.99",
     category: "Chambray Denim",
     description: "Soft, lightweight denim with a distinctive weave pattern.",

@@ -99,6 +99,15 @@ export default function WholesalePage() {
     },
   ]
 
+  const categories = [
+    { name: "Denim Jackets", image: "/jacket.png" },
+    { name: "Jeans", image: "/overall.png" },
+    { name: "Shirts", image: "/shirt.png" },
+    { name: "Shorts", image: "/slim.png" },
+    { name: "Skirts", image: "/skirt.png" },
+    { name: "Accessories", image: "/stretch.png" },
+  ]
+
   return (
     <Box>
       {/* Hero Section */}
@@ -186,7 +195,7 @@ export default function WholesalePage() {
               transition={{ duration: 0.5, delay: 0.4 }}
             >
               <MotionImage
-                src="/placeholder.svg?height=600&width=800"
+                src="/denim.png"
                 alt="ANMI Denim Wholesale"
                 borderRadius="lg"
                 objectFit="cover"
@@ -194,7 +203,7 @@ export default function WholesalePage() {
                 h="100%"
                 maxH="400px"
                 whileHover={{ scale: 1.03 }}
-                transition={{ duration: 0.3 } as any}
+                transition={{ duration: 0.3 }}
               />
             </MotionBox>
           </SimpleGrid>
@@ -234,7 +243,7 @@ export default function WholesalePage() {
                   h="100%"
                   position="relative"
                   whileHover={{ y: -5, boxShadow: "xl" }}
-                  transition={{ duration: 0.3 } as any}
+                  transition={{ duration: 0.3 }}
                 >
                   <Flex
                     position="absolute"
@@ -288,9 +297,9 @@ export default function WholesalePage() {
             Wholesale Product Categories
           </MotionHeading>
           <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
-            {["Denim Jackets", "Jeans", "Shirts", "Shorts", "Skirts", "Accessories"].map((category, index) => (
+            {categories.map((category, index) => (
               <MotionBox
-                key={category}
+                key={category.name}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
@@ -304,8 +313,8 @@ export default function WholesalePage() {
                   transition={{ duration: 0.3 }}
                 >
                   <MotionImage
-                    src="/placeholder.svg?height=400&width=600"
-                    alt={category}
+                    src={category.image}
+                    alt={category.name}
                     objectFit="cover"
                     w="100%"
                     h="100%"
@@ -321,7 +330,7 @@ export default function WholesalePage() {
                     justifyContent="center"
                   >
                     <Heading as="h3" size="lg" color="white">
-                      {category}
+                      {category.name}
                     </Heading>
                   </Box>
                 </MotionBox>
@@ -406,4 +415,3 @@ export default function WholesalePage() {
     </Box>
   )
 }
-
