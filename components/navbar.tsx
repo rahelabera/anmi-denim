@@ -43,13 +43,6 @@ const MotionPopoverContent = motion(PopoverContent)
 
 // Product categories
 const productCategories = {
-  "Denim Types": [
-    { name: "Raw Denim", slug: "denim-types/raw-denim" },
-    { name: "Selvage Denim", slug: "denim-types/selvage-denim" },
-    { name: "Stretch Denim", slug: "denim-types/stretch-denim" },
-    { name: "Acid Wash Denim", slug: "denim-types/acid-wash-denim" },
-    { name: "Chambray Denim", slug: "denim-types/chambray-denim" },
-  ],
   Color: [
     { name: "Black", slug: "color/black" },
     { name: "Blue", slug: "color/blue" },
@@ -73,7 +66,8 @@ export default function Navbar() {
   const pathname = usePathname()
   const router = useRouter()
   const [searchTerm, setSearchTerm] = useState("")
-  const [activeCategory, setActiveCategory] = useState<string | null>(null)
+  const [activeCategory, setActiveCategory] = useState<string | null>(null) // For main popover
+  const [openSubDropdown, setOpenSubDropdown] = useState<string | null>(null) // For Color/Style
   const searchInputRef = useRef<HTMLInputElement>(null)
 
   // Check if current path is products or any product category
@@ -113,138 +107,155 @@ export default function Navbar() {
             <HStack as="nav" spacing={6} justifyContent="center">
               {Links.map((link) =>
                 link.hasDropdown ? (
-                  <Popover key={link.name} trigger="hover" placement="bottom-start" strategy="fixed">
+                  <Popover
+                    key="Products"
+                    trigger="click"
+                    placement="bottom-start"
+                    strategy="fixed"
+                    isOpen={activeCategory === "Products"}
+                    onClose={() => {
+                      setActiveCategory(null)
+                      setOpenSubDropdown(null)
+                    }}
+                  >
                     <PopoverTrigger>
-                      <Box>
-                        <Link href={link.href} passHref legacyBehavior>
-                          <MotionBox
-                            position="relative"
+                      <Box
+                        tabIndex={0}
+                        onClick={() =>
+                          setActiveCategory(activeCategory === "Products" ? null : "Products")
+                        }
+                      >
+                        <MotionBox
+                          position="relative"
+                          display="flex"
+                          alignItems="center"
+                          whileHover={{ scale: 1.05 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <ChakraLink
+                            px={2}
+                            py={1}
+                            rounded="md"
+                            fontWeight="medium"
+                            color={isProductsActive ? "#E05038" : "gray.600"}
+                            _hover={{
+                              textDecoration: "none",
+                              color: "#E05038",
+                            }}
                             display="flex"
                             alignItems="center"
-                            whileHover={{ scale: 1.05 }}
-                            transition={{ duration: 0.2 }}
                           >
-                            <ChakraLink
-                              px={2}
-                              py={1}
-                              rounded="md"
-                              fontWeight="medium"
-                              color={isProductsActive ? "#E05038" : "gray.600"}
-                              _hover={{
-                                textDecoration: "none",
-                                color: "#E05038",
-                              }}
-                              display="flex"
-                              alignItems="center"
-                            >
-                              {link.name}
-                              <ChevronDownIcon ml={1} />
-                            </ChakraLink>
-                            <MotionBox
-                              position="absolute"
-                              bottom="-2px"
-                              left={0}
-                              right={0}
-                              height="2px"
-                              bg="#E05038"
-                              initial={{ scaleX: isProductsActive ? 1 : 0 }}
-                              whileHover={{ scaleX: 1 }}
-                              transformOrigin="left"
-                              transition={{ duration: 0.3 }}
-                            />
-                          </MotionBox>
-                        </Link>
+                            Products
+                            <ChevronDownIcon ml={1} />
+                          </ChakraLink>
+                          <MotionBox
+                            position="absolute"
+                            bottom="-2px"
+                            left={0}
+                            right={0}
+                            height="2px"
+                            bg="#E05038"
+                            initial={{ scaleX: isProductsActive ? 1 : 0 }}
+                            whileHover={{ scaleX: 1 }}
+                            transformOrigin="left"
+                            transition={{ duration: 0.3 }}
+                          />
+                        </MotionBox>
                       </Box>
                     </PopoverTrigger>
-                    <MotionPopoverContent
+                    <PopoverContent
                       width="220px"
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.2 }}
                       _focus={{ boxShadow: "md" }}
                       boxShadow="md"
                       borderRadius="md"
                       border="1px solid"
                       borderColor="gray.200"
+                      p={0}
                     >
                       <PopoverArrow />
                       <PopoverBody p={0}>
                         <Stack spacing={0}>
-                          {Object.entries(productCategories).map(([category, items]) => (
-                            <Popover
-                              key={category}
-                              trigger="hover"
-                              placement="right-start"
-                              strategy="fixed"
-                              onOpen={() => setActiveCategory(category)}
-                              onClose={() => setActiveCategory(null)}
-                              isOpen={activeCategory === category}
+                          {/* Color Dropdown */}
+                          <Box>
+                            <Box
+                              fontWeight="bold"
+                              px={4}
+                              py={2}
+                              color="gray.700"
+                              bg={openSubDropdown === "Color" ? "gray.100" : "gray.50"}
+                              _hover={{ bg: "gray.100", color: "brand.500" }}
+                              cursor="pointer"
+                              transition="all 0.2s"
+                              onClick={() =>
+                                setOpenSubDropdown(openSubDropdown === "Color" ? null : "Color")
+                              }
                             >
-                              <PopoverTrigger>
-                                <Box
-                                  fontWeight="bold"
-                                  px={4}
-                                  py={2}
-                                  color="gray.700"
-                                  bg="gray.50"
-                                  _hover={{ bg: "gray.100", color: "brand.500" }}
-                                  cursor="pointer"
-                                  transition="all 0.2s"
-                                >
-                                  {category}
-                                </Box>
-                              </PopoverTrigger>
-                              <PopoverContent
-                                width="180px"
-                                boxShadow="md"
-                                borderRadius="md"
-                                border="1px solid"
-                                borderColor="gray.200"
-                              >
-                                <PopoverArrow />
-                                <PopoverBody p={0}>
-                                  <Stack spacing={0}>
-                                    {items.map((item) => (
-                                      <Link key={item.slug} href={`/products/${item.slug}`} passHref legacyBehavior>
-                                        <ChakraLink
-                                          display="block"
-                                          px={4}
-                                          py={2}
-                                          position="relative"
-                                          _hover={{
-                                            bg: "rgba(224, 80, 56, 0.05)",
-                                            color: "#E05038",
-                                            textDecoration: "none",
-                                          }}
-                                          color={pathname === `/products/${item.slug}` ? "#E05038" : "gray.700"}
-                                        >
-                                          <MotionBox position="relative">
-                                            {item.name}
-                                            <MotionBox
-                                              position="absolute"
-                                              bottom="-1px"
-                                              left={0}
-                                              right={0}
-                                              height="1px"
-                                              bg="#E05038"
-                                              initial={{ scaleX: pathname === `/products/${item.slug}` ? 1 : 0 }}
-                                              whileHover={{ scaleX: 1 }}
-                                              transformOrigin="left"
-                                              transition={{ duration: 0.3 }}
-                                            />
-                                          </MotionBox>
-                                        </ChakraLink>
-                                      </Link>
-                                    ))}
-                                  </Stack>
-                                </PopoverBody>
-                              </PopoverContent>
-                            </Popover>
-                          ))}
+                              Color <ChevronDownIcon ml={1} />
+                            </Box>
+                            {openSubDropdown === "Color" && (
+                              <Stack spacing={0} pl={4} bg="gray.50">
+                                {productCategories.Color.map((item) => (
+                                  <Link key={item.slug} href={`/products/${item.slug}`} passHref legacyBehavior>
+                                    <ChakraLink
+                                      display="block"
+                                      px={4}
+                                      py={2}
+                                      _hover={{
+                                        bg: "rgba(224, 80, 56, 0.05)",
+                                        color: "#E05038",
+                                        textDecoration: "none",
+                                      }}
+                                      color={pathname === `/products/${item.slug}` ? "#E05038" : "gray.700"}
+                                    >
+                                      {item.name}
+                                    </ChakraLink>
+                                  </Link>
+                                ))}
+                              </Stack>
+                            )}
+                          </Box>
+                          {/* Style Dropdown */}
+                          <Box>
+                            <Box
+                              fontWeight="bold"
+                              px={4}
+                              py={2}
+                              color="gray.700"
+                              bg={openSubDropdown === "Style" ? "gray.100" : "gray.50"}
+                              _hover={{ bg: "gray.100", color: "brand.500" }}
+                              cursor="pointer"
+                              transition="all 0.2s"
+                              onClick={() =>
+                                setOpenSubDropdown(openSubDropdown === "Style" ? null : "Style")
+                              }
+                            >
+                              Style <ChevronDownIcon ml={1} />
+                            </Box>
+                            {openSubDropdown === "Style" && (
+                              <Stack spacing={0} pl={4} bg="gray.50">
+                                {productCategories.Style.map((item) => (
+                                  <Link key={item.slug} href={`/products/${item.slug}`} passHref legacyBehavior>
+                                    <ChakraLink
+                                      display="block"
+                                      px={4}
+                                      py={2}
+                                      _hover={{
+                                        bg: "rgba(224, 80, 56, 0.05)",
+                                        color: "#E05038",
+                                        textDecoration: "none",
+                                      }}
+                                      color={pathname === `/products/${item.slug}` ? "#E05038" : "gray.700"}
+                                    >
+                                      {item.name}
+                                    </ChakraLink>
+                                  </Link>
+                                ))}
+                              </Stack>
+                            )}
+                          </Box>
                         </Stack>
                       </PopoverBody>
-                    </MotionPopoverContent>
+                    </PopoverContent>
                   </Popover>
                 ) : (
                   <Link key={link.name} href={link.href} passHref legacyBehavior>
@@ -365,13 +376,23 @@ export default function Navbar() {
                         {link.name}
                       </ChakraLink>
                     </Link>
-                    {Object.entries(productCategories).map(([category, items]) => (
-                      <Box key={category} mt={2}>
-                        <Text fontWeight="bold" px={2} py={1} color="gray.500">
-                          {category}
-                        </Text>
+                    {/* Accordion for mobile */}
+                    <Box>
+                      {/* Color */}
+                      <Box
+                        fontWeight="bold"
+                        px={2}
+                        py={1}
+                        color="gray.500"
+                        cursor="pointer"
+                        bg={openSubDropdown === "Color" ? "gray.100" : "transparent"}
+                        onClick={() => setOpenSubDropdown(openSubDropdown === "Color" ? null : "Color")}
+                      >
+                        Color <ChevronDownIcon />
+                      </Box>
+                      {openSubDropdown === "Color" && (
                         <Stack pl={4} spacing={1}>
-                          {items.map((item) => (
+                          {productCategories.Color.map((item) => (
                             <Link key={item.slug} href={`/products/${item.slug}`} passHref legacyBehavior>
                               <ChakraLink
                                 px={2}
@@ -392,8 +413,44 @@ export default function Navbar() {
                             </Link>
                           ))}
                         </Stack>
+                      )}
+                      {/* Style */}
+                      <Box
+                        fontWeight="bold"
+                        px={2}
+                        py={1}
+                        color="gray.500"
+                        cursor="pointer"
+                        bg={openSubDropdown === "Style" ? "gray.100" : "transparent"}
+                        onClick={() => setOpenSubDropdown(openSubDropdown === "Style" ? null : "Style")}
+                      >
+                        Style <ChevronDownIcon />
                       </Box>
-                    ))}
+                      {openSubDropdown === "Style" && (
+                        <Stack pl={4} spacing={1}>
+                          {productCategories.Style.map((item) => (
+                            <Link key={item.slug} href={`/products/${item.slug}`} passHref legacyBehavior>
+                              <ChakraLink
+                                px={2}
+                                py={1}
+                                fontSize="sm"
+                                fontWeight="medium"
+                                color={pathname === `/products/${item.slug}` ? "#E05038" : "gray.600"}
+                                _hover={{
+                                  textDecoration: "none",
+                                  color: "#E05038",
+                                }}
+                                onClick={onClose}
+                                position="relative"
+                                display="inline-block"
+                              >
+                                {item.name}
+                              </ChakraLink>
+                            </Link>
+                          ))}
+                        </Stack>
+                      )}
+                    </Box>
                   </Box>
                 ) : (
                   <Link key={link.name} href={link.href} passHref legacyBehavior>

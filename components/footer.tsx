@@ -11,9 +11,15 @@ export default function Footer() {
   return (
     <Box bg="#000000" color="gray.200" mt="auto">
       <Container as={Stack} maxW="6xl" py={10}>
-        <SimpleGrid templateColumns={{ sm: "1fr 1fr", md: "2fr 1fr 1fr 1fr" }} spacing={8}>
-          <Stack spacing={6}>
-            <Box>
+        <SimpleGrid
+          templateColumns={{ base: "1fr", sm: "1fr 1fr", md: "2fr 1fr 1fr" }}
+          spacing={8}
+          textAlign={{ base: "center", md: "left" }} // Center on mobile
+          justifyItems={{ base: "center", md: "start" }} // Center items on mobile
+        >
+          {/* Logo & Social */}
+          <Stack spacing={6} align={{ base: "center", md: "flex-start" }}>
+            <Box mx={{ base: "auto", md: "0" }}>
               <Image
                 src="/logo.png"
                 alt="ANMI Denim Logo"
@@ -22,8 +28,10 @@ export default function Footer() {
                 fallbackSrc="/placeholder.svg?height=40&width=120"
               />
             </Box>
-            <Text fontSize="sm">Premium denim products made in Ethiopia. Crafted with quality since 2024.</Text>
-            <Stack direction="row" spacing={6}>
+            <Text fontSize="sm">
+              Premium denim products made in Ethiopia. Crafted with quality since 2024.
+            </Text>
+            <Stack direction="row" spacing={4} justify={{ base: "center", sm: "flex-start" }}>
               <MotionIconButton
                 as="a"
                 href="https://x.com/anmidenim"
@@ -110,6 +118,7 @@ export default function Footer() {
               />
             </Stack>
           </Stack>
+          {/* Company Links */}
           <Stack align="flex-start">
             <Text fontWeight="500" fontSize="lg" mb={2} color="white">
               Company
@@ -127,40 +136,7 @@ export default function Footer() {
               Press
             </ChakraLink>
           </Stack>
-          <Stack align="flex-start">
-            <Text fontWeight="500" fontSize="lg" mb={2} color="white">
-              Products
-            </Text>
-            <Link href="/products" passHref legacyBehavior>
-              <ChakraLink _hover={{ color: "brand.500" }}>All Products</ChakraLink>
-            </Link>
-            <Text fontWeight="500" fontSize="sm" mb={1} color="gray.400">
-              Denim Types
-            </Text>
-            <Link href="/products/denim-types/raw-denim" passHref legacyBehavior>
-              <ChakraLink _hover={{ color: "brand.500" }} pl={2} fontSize="sm">
-                Raw Denim
-              </ChakraLink>
-            </Link>
-            <Link href="/products/denim-types/selvage-denim" passHref legacyBehavior>
-              <ChakraLink _hover={{ color: "brand.500" }} pl={2} fontSize="sm">
-                Selvage Denim
-              </ChakraLink>
-            </Link>
-            <Text fontWeight="500" fontSize="sm" mb={1} mt={1} color="gray.400">
-              Colors
-            </Text>
-            <Link href="/products/color/black" passHref legacyBehavior>
-              <ChakraLink _hover={{ color: "brand.500" }} pl={2} fontSize="sm">
-                Black
-              </ChakraLink>
-            </Link>
-            <Link href="/products/color/blue" passHref legacyBehavior>
-              <ChakraLink _hover={{ color: "brand.500" }} pl={2} fontSize="sm">
-                Blue
-              </ChakraLink>
-            </Link>
-          </Stack>
+          {/* Contact Info */}
           <Stack align="flex-start">
             <Text fontWeight="500" fontSize="lg" mb={2} color="white">
               Contact
@@ -168,7 +144,6 @@ export default function Footer() {
             <Text>Phone: +251950040844</Text>
             <Text>Email: info@anmidenim.com</Text>
             <Text>Addis Ababa, Ethiopia</Text>
-            <Text>Website: Coming Soon</Text>
           </Stack>
         </SimpleGrid>
       </Container>

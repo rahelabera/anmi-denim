@@ -339,6 +339,7 @@ export default function ProductsPage() {
                       overflow="hidden"
                       whileHover={{ y: -5, boxShadow: "xl" }}
                       transition={{ duration: 0.3 }}
+                      style={{ cursor: "pointer" }}
                     >
                       <Box position="relative" h="300px">
                         <MotionImage

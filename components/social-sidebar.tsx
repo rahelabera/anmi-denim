@@ -53,7 +53,6 @@ export default function SocialSidebar() {
       top="50%"
       transform="translateY(-50%)"
       zIndex={10}
-      bg="white"
       boxShadow="md"
       borderLeftRadius="md"
       py={3}
