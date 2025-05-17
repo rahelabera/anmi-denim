@@ -10,6 +10,7 @@ import {
   Image,
   Link as ChakraLink,
   Container,
+  Text,
 } from "@chakra-ui/react"
 import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons"
 import Link from "next/link"
@@ -20,21 +21,22 @@ import { useState } from "react"
 const MotionBox = motion(Box)
 const MotionFlex = motion(Flex)
 
-// Denim types for dropdown
-const denimTypes = [
-  { name: "Raw Denim", slug: "raw-denim" },
-  { name: "Selvage Denim", slug: "selvage-denim" },
-  { name: "Stretch Denim", slug: "stretch-denim" },
-  { name: "Acid Wash Denim", slug: "acid-wash-denim" },
-  { name: "Chambray Denim", slug: "chambray-denim" },
-  { name: "Printed Denim", slug: "printed-denim" },
-]
+// Product categories
+const productCategories = {
+  Color: [
+    { name: "Black", slug: "color/black" },
+    { name: "Blue", slug: "color/blue" },
+  ],
+  Style: [
+    { name: "Slim", slug: "style/slim" },
+    { name: "Straight", slug: "style/straight" },
+    { name: "Baggy", slug: "style/baggy" },
+  ],
+}
 
 const Links = [
   { name: "Home", href: "/" },
   { name: "Products", href: "/products", hasDropdown: true },
-  { name: "Wholesale", href: "/wholesale" },
-  { name: "Custom Orders", href: "/custom" },
   { name: "About Us", href: "/about" },
 ]
 
@@ -43,17 +45,17 @@ export default function Navbar() {
   const pathname = usePathname()
   const [showDropdown, setShowDropdown] = useState(false)
 
-  // Check if current path is products or any denim type
-  const isProductsActive = pathname === "/products" || pathname.startsWith("/denim-types")
+  // Check if current path is products or any product category
+  const isProductsActive = pathname === "/products" || pathname.startsWith("/products/")
 
   return (
     <Box as="nav" bg="white" px={4} boxShadow="sm" position="sticky" top={0} zIndex={1000}>
       <Container maxW="container.xl">
         <Flex h={16} alignItems="center" justifyContent="space-between">
           <Link href="/" passHref legacyBehavior>
-            <Box>
+            <Box as="a">
               <Image
-                src="/logo2.png"
+                src="/logo.png"
                 alt="ANMI Denim Logo"
                 h="40px"
                 objectFit="contain"
@@ -76,7 +78,9 @@ export default function Navbar() {
                     key={link.name}
                     position="relative"
                     onMouseEnter={() => setShowDropdown(true)}
-                    onMouseLeave={() => setShowDropdown(false)}
+                    onMouseLeave={() => {
+                      setTimeout(() => setShowDropdown(false), 100)
+                    }}
                   >
                     <Link href={link.href} passHref legacyBehavior>
                       <MotionBox
@@ -136,37 +140,44 @@ export default function Navbar() {
                         mt={2}
                       >
                         <Stack spacing={0}>
-                          {denimTypes.map((type) => (
-                            <Link key={type.slug} href={`/denim-types/${type.slug}`} passHref legacyBehavior>
-                              <ChakraLink
-                                display="block"
-                                px={4}
-                                py={2}
-                                position="relative"
-                                _hover={{
-                                  bg: "rgba(224, 80, 56, 0.05)",
-                                  color: "#E05038",
-                                  textDecoration: "none",
-                                }}
-                                color={pathname === `/denim-types/${type.slug}` ? "#E05038" : "gray.700"}
-                              >
-                                <MotionBox position="relative">
-                                  {type.name}
-                                  <MotionBox
-                                    position="absolute"
-                                    bottom="-1px"
-                                    left={0}
-                                    right={0}
-                                    height="1px"
-                                    bg="#E05038"
-                                    initial={{ scaleX: 0 }}
-                                    whileHover={{ scaleX: 1 }}
-                                    transformOrigin="left"
-                                    transition={{ duration: 0.3 }}
-                                  />
-                                </MotionBox>
-                              </ChakraLink>
-                            </Link>
+                          {Object.entries(productCategories).map(([category, items]) => (
+                            <Box key={category}>
+                              <Text fontWeight="bold" px={4} py={2} color="gray.500">
+                                {category}
+                              </Text>
+                              {items.map((item) => (
+                                <Link key={item.slug} href={`/products/${item.slug}`} passHref legacyBehavior>
+                                  <ChakraLink
+                                    display="block"
+                                    px={6}
+                                    py={2}
+                                    position="relative"
+                                    _hover={{
+                                      bg: "rgba(224, 80, 56, 0.05)",
+                                      color: "#E05038",
+                                      textDecoration: "none",
+                                    }}
+                                    color={pathname === `/products/${item.slug}` ? "#E05038" : "gray.700"}
+                                  >
+                                    <MotionBox position="relative">
+                                      {item.name}
+                                      <MotionBox
+                                        position="absolute"
+                                        bottom="-1px"
+                                        left={0}
+                                        right={0}
+                                        height="1px"
+                                        bg="#E05038"
+                                        initial={{ scaleX: pathname === `/products/${item.slug}` ? 1 : 0 }}
+                                        whileHover={{ scaleX: 1 }}
+                                        transformOrigin="left"
+                                        transition={{ duration: 0.3 }}
+                                      />
+                                    </MotionBox>
+                                  </ChakraLink>
+                                </Link>
+                              ))}
+                            </Box>
                           ))}
                         </Stack>
                       </MotionBox>
@@ -273,26 +284,35 @@ export default function Navbar() {
                         {link.name}
                       </ChakraLink>
                     </Link>
-                    <Stack pl={4} mt={1} spacing={1}>
-                      {denimTypes.map((type) => (
-                        <Link key={type.slug} href={`/denim-types/${type.slug}`} passHref legacyBehavior>
-                          <ChakraLink
-                            px={2}
-                            py={1}
-                            fontSize="sm"
-                            fontWeight="medium"
-                            color={pathname === `/denim-types/${type.slug}` ? "#E05038" : "gray.600"}
-                            _hover={{
-                              textDecoration: "none",
-                              color: "#E05038",
-                            }}
-                            onClick={onClose}
-                          >
-                            {type.name}
-                          </ChakraLink>
-                        </Link>
-                      ))}
-                    </Stack>
+                    {Object.entries(productCategories).map(([category, items]) => (
+                      <Box key={category} mt={2}>
+                        <Text fontWeight="bold" px={2} py={1} color="gray.500">
+                          {category}
+                        </Text>
+                        <Stack pl={4} spacing={1}>
+                          {items.map((item) => (
+                            <Link key={item.slug} href={`/products/${item.slug}`} passHref legacyBehavior>
+                              <ChakraLink
+                                px={2}
+                                py={1}
+                                fontSize="sm"
+                                fontWeight="medium"
+                                color={pathname === `/products/${item.slug}` ? "#E05038" : "gray.600"}
+                                _hover={{
+                                  textDecoration: "none",
+                                  color: "#E05038",
+                                }}
+                                onClick={onClose}
+                                position="relative"
+                                display="inline-block"
+                              >
+                                {item.name}
+                              </ChakraLink>
+                            </Link>
+                          ))}
+                        </Stack>
+                      </Box>
+                    ))}
                   </Box>
                 ) : (
                   <Link key={link.name} href={link.href} passHref legacyBehavior>

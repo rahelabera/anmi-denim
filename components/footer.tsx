@@ -102,11 +102,14 @@ export default function Footer() {
             <Link href="/products" passHref legacyBehavior>
               <ChakraLink _hover={{ color: "brand.500" }}>All Products</ChakraLink>
             </Link>
-            <Link href="/wholesale" passHref legacyBehavior>
-              <ChakraLink _hover={{ color: "brand.500" }}>Wholesale</ChakraLink>
+            <Link href="/products/color/black" passHref legacyBehavior>
+              <ChakraLink _hover={{ color: "brand.500" }}>Black</ChakraLink>
             </Link>
-            <Link href="/custom" passHref legacyBehavior>
-              <ChakraLink _hover={{ color: "brand.500" }}>Custom Orders</ChakraLink>
+            <Link href="/products/color/blue" passHref legacyBehavior>
+              <ChakraLink _hover={{ color: "brand.500" }}>Blue</ChakraLink>
+            </Link>
+            <Link href="/products/style/slim" passHref legacyBehavior>
+              <ChakraLink _hover={{ color: "brand.500" }}>Slim</ChakraLink>
             </Link>
           </Stack>
           <Stack align="flex-start">
@@ -136,4 +139,3 @@ export default function Footer() {
     </Box>
   )
 }
-

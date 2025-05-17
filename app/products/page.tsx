@@ -41,139 +41,95 @@ const MotionHeading = motion(Heading)
 const MotionText = motion(Text)
 const MotionImage = motion(Image)
 
-// Sample product data - updated to focus on denim types for jeans/trousers
+// Product categories
+const productCategories = {
+  Color: [
+    { name: "Black", slug: "color/black" },
+    { name: "Blue", slug: "color/blue" },
+  ],
+  Style: [
+    { name: "Slim", slug: "style/slim" },
+    { name: "Straight", slug: "style/straight" },
+    { name: "Baggy", slug: "style/baggy" },
+  ],
+}
+
+// Flatten categories for filter dropdown
+const allCategories = [
+  "All",
+  ...Object.values(productCategories)
+    .flat()
+    .map((item) => item.name),
+]
+
+// Sample product data - updated to focus on new categories
 const products = [
   {
     id: "1",
-    name: "Classic Raw Denim Jeans",
-    category: "Raw Denim",
+    name: "Black Slim Jeans",
+    category: "Black",
+    style: "Slim",
     price: 129.99,
-    image: "/raw.png",
+    image: "/placeholder.svg?height=600&width=400",
     isNew: true,
     isBestSeller: false,
-    description: "Unwashed, untreated denim with a rigid feel and deep indigo color.",
+    description: "Classic black slim fit jeans with a modern cut.",
   },
   {
     id: "2",
-    name: "Selvage Straight Fit Jeans",
-    category: "Selvage Denim",
-    price: 149.99,
-    image: "/selvage.png",
+    name: "Blue Straight Jeans",
+    category: "Blue",
+    style: "Straight",
+    price: 119.99,
+    image: "/placeholder.svg?height=600&width=400",
     isNew: false,
     isBestSeller: true,
-    description: "Premium selvage denim with distinctive self-edge finish.",
+    description: "Traditional straight fit blue jeans for everyday wear.",
   },
   {
     id: "3",
-    name: "Comfort Stretch Slim Jeans",
-    category: "Stretch Denim",
-    price: 89.99,
-    image: "/stretch.png",
+    name: "Black Baggy Jeans",
+    category: "Black",
+    style: "Baggy",
+    price: 139.99,
+    image: "/placeholder.svg?height=600&width=400",
     isNew: false,
     isBestSeller: false,
-    description: "Flexible denim with added elastane for maximum comfort.",
+    description: "Relaxed baggy fit black jeans for maximum comfort.",
   },
   {
     id: "4",
-    name: "Vintage Acid Wash Jeans",
-    category: "Acid Wash Denim",
-    price: 99.99,
-    image: "/acid.png",
+    name: "Blue Slim Jeans",
+    category: "Blue",
+    style: "Slim",
+    price: 124.99,
+    image: "/placeholder.svg?height=600&width=400",
     isNew: true,
     isBestSeller: false,
-    description: "Distinctive mottled appearance created through acid washing process.",
+    description: "Modern slim fit blue jeans with stretch comfort.",
   },
   {
     id: "5",
-    name: "Lightweight Chambray Trousers",
-    category: "Chambray Denim",
-    price: 79.99,
-    image: "/chambray.png",
+    name: "Black Straight Jeans",
+    category: "Black",
+    style: "Straight",
+    price: 114.99,
+    image: "/placeholder.svg?height=600&width=400",
     isNew: false,
     isBestSeller: true,
-    description: "Soft, lightweight denim with a distinctive weave pattern.",
+    description: "Classic straight fit black jeans for a timeless look.",
   },
   {
     id: "6",
-    name: "Artisan Printed Denim Jeans",
-    category: "Printed Denim",
-    price: 119.99,
-    image: "/printed.png",
+    name: "Blue Baggy Jeans",
+    category: "Blue",
+    style: "Baggy",
+    price: 134.99,
+    image: "/placeholder.svg?height=600&width=400",
     isNew: false,
     isBestSeller: false,
-    description: "Unique patterns and designs printed directly onto denim fabric.",
+    description: "Relaxed baggy fit blue jeans for a casual style.",
   },
-  {
-    id: "7",
-    name: "Premium Raw Selvedge Jeans",
-    category: "Raw Denim",
-    price: 159.99,
-    image: "/raw.png",
-    isNew: true,
-    isBestSeller: false,
-    description: "Unwashed premium denim with authentic selvage edges.",
-  },
-  {
-    id: "8",
-    name: "Ultra Stretch Skinny Jeans",
-    category: "Stretch Denim",
-    price: 99.99,
-    image: "/stretch.png",
-    isNew: false,
-    isBestSeller: true,
-    description: "High-stretch denim with exceptional recovery and shape retention.",
-  },
-  {
-    id: "9",
-    name: "Distressed Acid Wash Trousers",
-    category: "Acid Wash Denim",
-    price: 109.99,
-    image: "/acid.png",
-    isNew: false,
-    isBestSeller: false,
-    description: "Acid-washed denim with strategic distressing for a vintage look.",
-  },
-  {
-    id: "10",
-    name: "Floral Printed Denim Jeans",
-    category: "Printed Denim",
-    price: 129.99,
-    image: "/printed.png",
-    isNew: true,
-    isBestSeller: false,
-    description: "Elegant floral patterns printed on premium denim fabric.",
-  },
-  {
-    id: "11",
-    name: "Chambray Summer Trousers",
-    category: "Chambray Denim",
-    price: 84.99,
-    image: "/chambray.png",
-    isNew: false,
-    isBestSeller: false,
-    description: "Breathable chambray denim perfect for warm weather.",
-  },
-  {
-    id: "12",
-    name: "Japanese Selvage Denim Jeans",
-    category: "Selvage Denim",
-    price: 179.99,
-    image: "/selvage.png",
-    isNew: true,
-    isBestSeller: true,
-    description: "Crafted from premium Japanese selvage denim with authentic details.",
-  },
-]
-
-// Updated categories to focus on denim types
-const categories = [
-  "All",
-  "Raw Denim",
-  "Selvage Denim",
-  "Stretch Denim",
-  "Acid Wash Denim",
-  "Chambray Denim",
-  "Printed Denim",
 ]
 
 export default function ProductsPage() {
@@ -194,7 +150,7 @@ export default function ProductsPage() {
     // Get category from URL if it exists
     const categoryFromUrl = searchParams.get("category")
     if (categoryFromUrl) {
-      const validCategory = categories.find((cat) => cat.toLowerCase() === categoryFromUrl.toLowerCase())
+      const validCategory = allCategories.find((cat) => cat.toLowerCase() === categoryFromUrl.toLowerCase())
       if (validCategory) {
         setSelectedCategory(validCategory)
       }
@@ -205,7 +161,8 @@ export default function ProductsPage() {
     const matchesSearch =
       product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       product.description.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesCategory = selectedCategory === "All" || product.category === selectedCategory
+    const matchesCategory =
+      selectedCategory === "All" || product.category === selectedCategory || product.style === selectedCategory
     const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1]
     return matchesSearch && matchesCategory && matchesPrice
   })
@@ -254,7 +211,7 @@ export default function ProductsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            Explore our premium denim jeans and trousers crafted with quality and style.
+            Explore our premium denim jeans crafted with quality and style.
           </MotionText>
         </Container>
       </MotionBox>
@@ -274,7 +231,7 @@ export default function ProductsPage() {
           <Flex flex="1" gap={4}>
             <Box position="relative" flex="1">
               <Input
-                placeholder="Search denim products..."
+                placeholder="Search products..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 pl={10}
@@ -289,7 +246,7 @@ export default function ProductsPage() {
               maxW={{ base: "full", md: "200px" }}
               display={{ base: "none", md: "block" }}
             >
-              {categories.map((category) => (
+              {allCategories.map((category) => (
                 <option key={category} value={category}>
                   {category}
                 </option>
@@ -316,22 +273,24 @@ export default function ProductsPage() {
                 Filters
               </Heading>
 
-              <Box mb={6}>
-                <Text fontWeight="medium" mb={2}>
-                  Denim Types
-                </Text>
-                <VStack align="start" spacing={2}>
-                  {categories.map((category) => (
-                    <Checkbox
-                      key={category}
-                      isChecked={selectedCategory === category}
-                      onChange={() => setSelectedCategory(category)}
-                    >
-                      {category}
-                    </Checkbox>
-                  ))}
-                </VStack>
-              </Box>
+              {Object.entries(productCategories).map(([categoryType, items]) => (
+                <Box key={categoryType} mb={6}>
+                  <Text fontWeight="medium" mb={2}>
+                    {categoryType}
+                  </Text>
+                  <VStack align="start" spacing={2}>
+                    {items.map((item) => (
+                      <Checkbox
+                        key={item.name}
+                        isChecked={selectedCategory === item.name}
+                        onChange={() => setSelectedCategory(item.name === selectedCategory ? "All" : item.name)}
+                      >
+                        {item.name}
+                      </Checkbox>
+                    ))}
+                  </VStack>
+                </Box>
+              ))}
 
               <Divider my={4} />
 
@@ -409,11 +368,25 @@ export default function ProductsPage() {
                         <Heading size="md" mb={2}>
                           {product.name}
                         </Heading>
-                        <Text color="gray.500" mb={2}>
-                          <Link href={`/denim-types/${product.category.toLowerCase().replace(" ", "-")}`} passHref>
-                            <ChakraLink _hover={{ color: "brand.500" }}>{product.category}</ChakraLink>
-                          </Link>
-                        </Text>
+                        <Flex gap={2} mb={2}>
+                          <Text color="gray.500">
+                            <ChakraLink
+                              href={`/products/color/${product.category.toLowerCase()}`}
+                              _hover={{ color: "brand.500" }}
+                            >
+                              {product.category}
+                            </ChakraLink>
+                          </Text>
+                          <Text color="gray.500">•</Text>
+                          <Text color="gray.500">
+                            <ChakraLink
+                              href={`/products/style/${product.style.toLowerCase()}`}
+                              _hover={{ color: "brand.500" }}
+                            >
+                              {product.style}
+                            </ChakraLink>
+                          </Text>
+                        </Flex>
                         <Text noOfLines={2} mb={3} fontSize="sm">
                           {product.description}
                         </Text>
@@ -492,11 +465,17 @@ export default function ProductsPage() {
                     <Heading size="md" mb={2}>
                       {product.name}
                     </Heading>
-                    <Text color="gray.500" mb={2}>
-                      <Link href={`/denim-types/${product.category.toLowerCase().replace(" ", "-")}`} passHref>
-                        <ChakraLink _hover={{ color: "brand.500" }}>{product.category}</ChakraLink>
-                      </Link>
-                    </Text>
+                    <Flex gap={2} mb={2}>
+                      <Text color="gray.500" fontSize="sm">
+                        {product.category}
+                      </Text>
+                      <Text color="gray.500" fontSize="sm">
+                        •
+                      </Text>
+                      <Text color="gray.500" fontSize="sm">
+                        {product.style}
+                      </Text>
+                    </Flex>
                     <Text fontWeight="bold" color="brand.500">
                       ${product.price.toFixed(2)}
                     </Text>
@@ -531,25 +510,27 @@ export default function ProductsPage() {
           <DrawerCloseButton />
           <DrawerHeader>Filters</DrawerHeader>
           <DrawerBody>
-            <Box mb={6}>
-              <Text fontWeight="medium" mb={2}>
-                Denim Types
-              </Text>
-              <VStack align="start" spacing={2}>
-                {categories.map((category) => (
-                  <Checkbox
-                    key={category}
-                    isChecked={selectedCategory === category}
-                    onChange={() => {
-                      setSelectedCategory(category)
-                      onClose()
-                    }}
-                  >
-                    {category}
-                  </Checkbox>
-                ))}
-              </VStack>
-            </Box>
+            {Object.entries(productCategories).map(([categoryType, items]) => (
+              <Box key={categoryType} mb={6}>
+                <Text fontWeight="medium" mb={2}>
+                  {categoryType}
+                </Text>
+                <VStack align="start" spacing={2}>
+                  {items.map((item) => (
+                    <Checkbox
+                      key={item.name}
+                      isChecked={selectedCategory === item.name}
+                      onChange={() => {
+                        setSelectedCategory(item.name === selectedCategory ? "All" : item.name)
+                        onClose()
+                      }}
+                    >
+                      {item.name}
+                    </Checkbox>
+                  ))}
+                </VStack>
+              </Box>
+            ))}
 
             <Divider my={4} />
 
@@ -579,4 +560,3 @@ export default function ProductsPage() {
     </Box>
   )
 }
-

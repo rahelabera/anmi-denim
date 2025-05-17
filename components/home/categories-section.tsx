@@ -1,6 +1,6 @@
 "use client"
 
-import { Box, Container, Heading, SimpleGrid, Text } from "@chakra-ui/react"
+import { Box, Container, Heading, SimpleGrid, Text, VStack, Divider } from "@chakra-ui/react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
@@ -8,29 +8,23 @@ import { useRef } from "react"
 
 const MotionBox = motion(Box)
 const MotionHeading = motion(Heading)
-const MotionText = motion(Text)
 
-// Updated categories to focus on denim types with links to detailed pages
-const categories = [
-  { name: "Raw Denim", slug: "raw-denim", image: "/skirt.png" },
-  { name: "Selvage Denim", slug: "selvage-denim", image: "/shirt.png" },
-  { name: "Stretch Denim", slug: "stretch-denim", image: "/slim.png" },
-  { name: "Acid Wash Denim", slug: "acid-wash-denim", image: "/classic.png" },
-]
+// Product categories
+const productCategories = {
+  Color: [
+    { name: "Black", slug: "color/black" },
+    { name: "Blue", slug: "color/blue" },
+  ],
+  Style: [
+    { name: "Slim", slug: "style/slim" },
+    { name: "Straight", slug: "style/straight" },
+    { name: "Baggy", slug: "style/baggy" },
+  ],
+}
 
 export default function CategoriesSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.3 })
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  }
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -47,66 +41,45 @@ export default function CategoriesSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
         >
-          Shop by Denim Type
+          Shop by Category
         </MotionHeading>
-        <MotionBox
-          as={SimpleGrid}
-          columns={{ base: 1, sm: 2, lg: 4 }}
-          spacing={6}
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
-          {categories.map((category) => (
-            <MotionBox key={category.name} variants={itemVariants}>
-              <Link href={`/denim-types/${category.slug}`} passHref>
-                <MotionBox
-                  as="a"
-                  position="relative"
-                  height="250px"
-                  rounded="xl" // Apply border radius to the container
-                  overflow="hidden"
-                  role="group"
-                  whileHover={{ y: -5 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <Box position="relative" w="100%" h="100%">
-                    <MotionBox
-                      as="img"
-                      src={category.image}
-                      alt={category.name}
-                      objectFit="cover"
-                      w="100%"
-                      h="100%"
-                      borderRadius="xl" // Apply border radius to the image
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.5 }}
-                    />
-                    <Box
-                      position="absolute"
-                      inset={0}
-                      bg="blackAlpha.600"
-                      borderRadius="xl" // Apply border radius to the overlay
-                      transition="background 0.3s"
-                      _hover={{ bg: "blackAlpha.500" }}
-                    />
-                    <Box position="absolute" inset={0} display="flex" alignItems="center" justifyContent="center">
-                      <MotionText
-                        fontSize="2xl"
-                        fontWeight="bold"
-                        color="white"
-                        whileHover={{ scale: 1.1 }}
+
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
+          {Object.entries(productCategories).map(([category, items]) => (
+            <MotionBox
+              key={category}
+              variants={itemVariants}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+            >
+              <Box borderWidth="1px" borderRadius="lg" overflow="hidden" p={6} boxShadow="md" bg="white">
+                <Heading size="lg" mb={4} color="brand.500">
+                  {category}
+                </Heading>
+                <Divider mb={4} />
+                <VStack align="stretch" spacing={4}>
+                  {items.map((item) => (
+                    <Link key={item.slug} href={`/products/${item.slug}`} passHref>
+                      <MotionBox
+                        as="a"
+                        p={4}
+                        borderRadius="md"
+                        bg="gray.50"
+                        _hover={{ bg: "gray.100" }}
+                        whileHover={{ y: -2, boxShadow: "md" }}
                         transition={{ duration: 0.2 }}
                       >
-                        {category.name}
-                      </MotionText>
-                    </Box>
-                  </Box>
-                </MotionBox>
-              </Link>
+                        <Text fontSize="lg" fontWeight="medium">
+                          {item.name}
+                        </Text>
+                      </MotionBox>
+                    </Link>
+                  ))}
+                </VStack>
+              </Box>
             </MotionBox>
           ))}
-        </MotionBox>
+        </SimpleGrid>
       </Container>
     </Box>
   )

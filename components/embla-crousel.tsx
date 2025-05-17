@@ -118,10 +118,11 @@ export function EmblaCarousel() {
                     <p className="text-sm text-gray-500">{product.category}</p>
                     <div className="mt-2 flex items-center justify-between">
                       <span className="text-lg font-bold text-[#E05038]">{product.price}</span>
-                      <Link href={`/products/${product.id}`}>
-                        <a className="rounded-full bg-[#E05038] px-3 py-1 text-sm text-white transition-colors hover:bg-[#c04530]">
-                          View
-                        </a>
+                      <Link
+                        href={`/products/${product.id}`}
+                        className="rounded-full bg-[#E05038] px-3 py-1 text-sm text-white transition-colors hover:bg-[#c04530]"
+                      >
+                        View
                       </Link>
                     </div>
                   </div>

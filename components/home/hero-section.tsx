@@ -15,7 +15,7 @@ export default function HeroSection() {
     <Box
       position="relative"
       height="70vh"
-      bgImage="/denim.png"
+      bgImage="url('/placeholder.svg?height=1080&width=1920')"
       bgSize="cover"
       bgPosition="center"
     >
@@ -97,4 +97,3 @@ export default function HeroSection() {
     </Box>
   )
 }
-

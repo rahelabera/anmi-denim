@@ -28,12 +28,13 @@ import { FiMinus, FiPlus, FiCheck, FiHeart, FiShare2 } from "react-icons/fi"
 import { motion } from "framer-motion"
 import { useState } from "react"
 import Link from "next/link"
+import { use } from "react"
 
 const MotionBox = motion(Box)
 const MotionImage = motion(Image)
 const MotionFlex = motion(Flex)
 
-// Update the ProductPageProps interface to make params a Promise
+// Define the type for the page props
 interface ProductPageProps {
   params: Promise<{
     id: string
@@ -47,11 +48,11 @@ const products = [
     name: "Classic Raw Denim Jeans",
     category: "Raw Denim",
     price: 129.99,
-    image: "/classic.png",
+    image: "/placeholder.svg?height=600&width=400",
     images: [
-      "/classic.png",
-      "/classic.png",
-      "/classic.png",
+      "/placeholder.svg?height=600&width=400",
+      "/placeholder.svg?height=600&width=400",
+      "/placeholder.svg?height=600&width=400",
     ],
     description:
       "Our classic raw denim jeans are crafted from premium unwashed, untreated denim. These jeans start off rigid and develop unique fade patterns based on your body and lifestyle. Made with 100% cotton 14oz Japanese selvedge denim.",
@@ -72,11 +73,11 @@ const products = [
     name: "Selvage Straight Fit Jeans",
     category: "Selvage Denim",
     price: 149.99,
-    image: "/slim.png",
+    image: "/placeholder.svg?height=600&width=400",
     images: [
-      "/slim.png",
-      "/slim.png",
-      "/slim.png",
+      "/placeholder.svg?height=600&width=400",
+      "/placeholder.svg?height=600&width=400",
+      "/placeholder.svg?height=600&width=400",
     ],
     description:
       "Our selvage straight fit jeans feature premium selvage denim with a distinctive self-edge finish. These jeans offer a classic straight leg silhouette with a medium rise. Made with 13oz Japanese selvage denim with red ID.",
@@ -95,12 +96,10 @@ const products = [
   // Add more products as needed
 ]
 
-// Then update the function to use await with params
-export default async function ProductPage({ params }: ProductPageProps) {
-  const { id } = await params
+export default function ProductPage({ params }: ProductPageProps) {
+  const { id } = use(params)
   const product = products.find((p) => p.id === id)
 
-  // Keep the rest of the function the same, just change the beginning
   const [selectedImage, setSelectedImage] = useState(0)
   const [quantity, setQuantity] = useState(1)
 
@@ -196,7 +195,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   w="80px"
                 >
                   <Image
-                    src={image || "/classic.png"}
+                    src={image || "/placeholder.svg"}
                     alt={`${product.name} - View ${index + 1}`}
                     objectFit="cover"
                     h="100%"
