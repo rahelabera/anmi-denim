@@ -77,10 +77,10 @@ export default function LinktreePage() {
             mb={4}
           />
           <Text as="h1" fontSize="3xl" fontWeight="bold" mb={2}>
-            Crafted with Quality
+            Crafted With Quality
           </Text>
           <Text fontSize="lg" color="gray.600">
-            Premium denim products made in Ethiopia
+            Premium Denim Products Made in Ethiopia
           </Text>
         </MotionBox>
 
