@@ -9,10 +9,10 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <ProductCarousel />
+      {/* <ProductCarousel /> */}
       <AboutSection />
       <ProductsSection />
-      <CategoriesSection />
+      {/* <CategoriesSection /> */}
       <CtaSection />
     </>
   )

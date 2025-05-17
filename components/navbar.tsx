@@ -183,7 +183,7 @@ export default function Navbar() {
                           {/* Color Dropdown */}
                           <Box>
                             <Box
-                              fontWeight="bold"
+                              fontWeight="medium"
                               px={4}
                               py={2}
                               color="gray.700"
@@ -222,7 +222,7 @@ export default function Navbar() {
                           {/* Style Dropdown */}
                           <Box>
                             <Box
-                              fontWeight="bold"
+                              fontWeight="medium"
                               px={4}
                               py={2}
                               color="gray.700"

@@ -20,7 +20,7 @@ export default function AboutSection() {
   return (
     <Box bg="gray.50" py={16} ref={ref}>
       <Container maxW="container.xl">
-        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={8}>
+        {/* <SimpleGrid columns={{ base: 1, md: 2 }} spacing={8}> */}
           <MotionStack
             spacing={4}
             justifyContent="center"
@@ -28,7 +28,14 @@ export default function AboutSection() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <MotionHeading as="h2" size="xl" mb={4}>
+            <MotionHeading
+              as="h2"
+              size="xl"
+              mb={4}
+              textAlign="center"
+              bgGradient="linear(to-r, brand.400, brand.600)"
+              bgClip="text"
+            >
               About ANMI Denim
             </MotionHeading>
             <MotionText fontSize="lg" color="gray.700">
@@ -52,7 +59,7 @@ export default function AboutSection() {
               </MotionBox>
             </Link>
           </MotionStack>
-          <MotionBox
+          {/* <MotionBox
             position="relative"
             height={{ base: "300px", md: "auto" }}
             rounded="lg"
@@ -70,8 +77,8 @@ export default function AboutSection() {
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.5 }}
             />
-          </MotionBox>
-        </SimpleGrid>
+          </MotionBox> */}
+        {/* </SimpleGrid> */}
       </Container>
     </Box>
   )

@@ -1,6 +1,6 @@
 "use client"
 
-import { Box, Container, Heading, Text, SimpleGrid, Image, Flex, Icon, Avatar, VStack } from "@chakra-ui/react"
+import { Box, Container, Heading, Text, SimpleGrid, Image, Flex, Icon, Avatar, VStack, Divider } from "@chakra-ui/react"
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import { FiAward, FiUsers, FiThumbsUp, FiGlobe, FiHeart } from "react-icons/fi"
@@ -10,6 +10,7 @@ const MotionHeading = motion(Heading)
 const MotionText = motion(Text)
 const MotionImage = motion(Image)
 const MotionFlex = motion(Flex)
+const MotionDivider = motion(Divider)
 
 export default function AboutPage() {
   const storyRef = useRef(null)
@@ -99,59 +100,66 @@ export default function AboutPage() {
         </Container>
       </MotionBox>
 
-      {/* Our Story Section */}
-      <Box py={16} ref={storyRef}>
-        <Container maxW="container.xl">
-          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
-            <MotionBox
-              initial={{ opacity: 0, x: -50 }}
-              animate={storyInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.2 }}
+      <Box py={20} bg="white">
+      <Container maxW="container.xl">
+        
+
+        <Flex direction={{ base: "column", md: "row" }} gap={{ base: 10, md: 20 }}>
+          
+          <MotionBox
+            w={{ base: "100%", md: "30%" }}
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7 }}
+          >
+            <MotionDivider
+          borderColor="gray.400"
+          mb={12}
+          initial={{ width: 0 }}
+          animate={{ width: "100%" }}
+          transition={{ duration: 1 }}
+        />
+            <Heading
+              as="h1"
+              fontSize={{ base: "5xl", md: "7xl" }}
+              fontWeight="bold"
+              letterSpacing="wider"
+              lineHeight="1"
             >
-              <Heading as="h2" size="xl" mb={6}>
-                Our Story
-              </Heading>
-              <Text fontSize="lg" mb={4}>
-                When you talk about ANMI stories, we need to discuss Ananya and Mikias. Ananya and Mikias were friends
-                and colleagues who worked at a financial institution and developed a friendship that transcended work.
-              </Text>
-              <Text fontSize="lg" mb={4}>
-                One day, while Ananya wanted to buy new jeans for himself, Mikias accompanied him on his search through
-                the Hayahulte markets to find jeans of good quality that they could trust for the brand's originality.
-                However, what they found instead was a platter of cheap, low-quality knockoffs all over the city.
-              </Text>
-              <Text fontSize="lg" mb={4}>
-                In that moment, it clicked: "Why don't we have a brand that was made in Ethiopia for Ethiopians that had
-                a feel of quality and that would last long?" And ANMI Denim (Ananya and Mikias) was born.
-              </Text>
-              <Text fontSize="lg">
-                ANMI Denim was established in late 2024 in Addis Ababa, Ethiopia, with the goal of fusing premium
-                textiles with innovative style. Our goal is to provide each and every customer with outstanding, premium
-                jeans that are comfortable, stylish, and long-lasting. The company's goal is to establish itself as a
-                top apparel brand in Africa and beyond, showcasing African workmanship and inventiveness to a worldwide
-                audience.
-              </Text>
-            </MotionBox>
-            <MotionBox
-              initial={{ opacity: 0, x: 50 }}
-              animate={storyInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
-              <MotionImage
-                src="/placeholder.svg?height=600&width=800"
-                alt="ANMI Denim Workshop"
-                borderRadius="lg"
-                objectFit="cover"
-                w="100%"
-                h="100%"
-                maxH="400px"
-                whileHover={{ scale: 1.03 }}
-                transition={{ duration: 0.3 }}
-              />
-            </MotionBox>
-          </SimpleGrid>
-        </Container>
-      </Box>
+              ABOUT
+            </Heading>
+          </MotionBox>
+
+          <MotionBox
+            w={{ base: "100%", md: "70%" }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+          >
+            <MotionText fontSize={{ base: "lg", md: "xl" }} lineHeight="1.8" color="gray.700" mb={8}>
+              ANMI Denim, established in 2024, aims to provide premium quality denim products made in Ethiopia. Our
+              great attention to detail, craftsmanship along with timely delivery make us the ideal candidate for any
+              denim needs you have in mind. Our team of experts in all phases of production are always there to keep you
+              satisfied.
+            </MotionText>
+
+            <MotionText fontSize={{ base: "lg", md: "xl" }} lineHeight="1.8" color="gray.700" mb={8}>
+              When you talk about ANMI stories, we need to discuss Ananya and Mikias. Ananya and Mikias were friends and
+              colleagues who worked at a financial institution and developed a friendship that transcended work. One
+              day, while Ananya wanted to buy new jeans for himself, Mikias accompanied him on his search through the
+              Hayahulte markets to find jeans of good quality that they could trust for the brand's originality.
+              However, what they found instead was a platter of cheap, low-quality knockoffs all over the city.
+            </MotionText>
+
+            <MotionText fontSize={{ base: "lg", md: "xl" }} lineHeight="1.8" color="gray.700">
+              We develop premium denim products as per the requirement of our customers, with modern design principles
+              and the latest tools. With ANMI by your side, an extraordinary quality is guaranteed. We will always be
+              there to give you the perfection you need to enhance your style; always here to take you steps ahead.
+            </MotionText>
+          </MotionBox>
+        </Flex>
+      </Container>
+    </Box>
 
       {/* Our Values Section */}
       <Box py={16} bg="gray.50" ref={valuesRef}>
@@ -213,7 +221,7 @@ export default function AboutPage() {
         </Container>
       </Box>
 
-      {/* Products Section */}
+      {/* Products Section
       <Box py={16}>
         <Container maxW="container.xl">
           <MotionHeading
@@ -252,21 +260,26 @@ export default function AboutPage() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
-              <MotionImage
-                src="/placeholder.svg?height=600&width=800"
-                alt="ANMI Denim Products"
-                borderRadius="lg"
-                objectFit="cover"
-                w="100%"
-                h="100%"
-                maxH="400px"
-                whileHover={{ scale: 1.03 }}
-                transition={{ duration: 0.3 }}
-              />
+              <MotionBox
+            w={{ base: "100%", md: "30%" }}
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7 }}
+          >
+            <Heading
+              as="h1"
+              fontSize={{ base: "5xl", md: "7xl" }}
+              fontWeight="bold"
+              letterSpacing="wider"
+              lineHeight="1"
+            >
+              ABOUT
+            </Heading>
+          </MotionBox>
             </MotionBox>
           </SimpleGrid>
         </Container>
-      </Box>
+      </Box> */}
 
       {/* Founders Section */}
       <Box py={16} bg="gray.50" ref={teamRef}>

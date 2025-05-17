@@ -14,9 +14,9 @@ export default function HeroSection() {
   return (
     <Box
       position="relative"
-      height="70vh"
-      bgImage="url('/placeholder.svg?height=1080&width=1920')"
-      bgSize="cover"
+      height="90vh"
+      bgImage="/sample.jpg"
+      bgSize="100%"
       bgPosition="center"
     >
       <Box position="absolute" inset={0} bg="blackAlpha.600" />

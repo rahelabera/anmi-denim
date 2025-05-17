@@ -20,26 +20,26 @@ const featuredProducts = [
     name: "Black Slim Jeans",
     category: "Black",
     style: "Slim",
-    price: 129.99,
-    image: "/placeholder.svg?height=600&width=400",
-    isNew: true,
+    // price: 129.99,
+    image: "/slimblackfold.jpg",
+    isNew: false,
   },
   {
     id: "2",
     name: "Blue Straight Jeans",
     category: "Blue",
     style: "Straight",
-    price: 119.99,
-    image: "/placeholder.svg?height=600&width=400",
-    isBestSeller: true,
+    // price: 119.99,
+    image: "/slimbluefold.png",
+    isBestSeller: false,
   },
   {
     id: "3",
     name: "Black Baggy Jeans",
     category: "Black",
     style: "Baggy",
-    price: 139.99,
-    image: "/placeholder.svg?height=600&width=400",
+    // price: 139.99,
+    image: "/straightfold.jpg",
   },
 ]
 
@@ -66,7 +66,7 @@ export default function ProductsSection() {
             bgGradient="linear(to-r, brand.400, brand.600)"
             bgClip="text"
           >
-            Our Premium Collection
+            Our Products
           </MotionHeading>
           <MotionText fontSize="lg" textAlign="center" maxW="2xl" color="gray.600">
             Every pair of ANMI jeans is crafted with meticulous care and high-quality materials. Explore our featured
@@ -141,9 +141,9 @@ export default function ProductsSection() {
                     <Text color="gray.600" mb={2}>
                       {product.category} • {product.style}
                     </Text>
-                    <Text fontWeight="bold" color="brand.500" fontSize="xl" mb={4}>
+                    {/* <Text fontWeight="bold" color="brand.500" fontSize="xl" mb={4}>
                       ${product.price.toFixed(2)}
-                    </Text>
+                    </Text> */}
                     <MotionButton
                       mt="auto"
                       colorScheme="brand"
@@ -178,7 +178,7 @@ export default function ProductsSection() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Explore Products
+              Explore our Products
             </MotionButton>
           </Link>
         </MotionFlex>
