@@ -14,7 +14,7 @@ const inter = Inter({
 export const metadata = {
   title: "ANMI Denim",
   icons: {
-    icon: "/logo.png", 
+    icon: "/favicon.ico", 
   },
 }
 
