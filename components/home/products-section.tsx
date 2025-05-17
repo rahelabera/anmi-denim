@@ -167,16 +167,18 @@ export default function ProductsSection() {
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          <Link href="/products" passHref>
+          <Link href="/products" passHref legacyBehavior>
             <MotionButton
-              as="a"
               size="lg"
               colorScheme="brand"
               rightIcon={<FiArrowRight />}
-              whileHover={{ x: 5 }}
+              tabIndex={0}
+              fontWeight="bold"
+              px={6}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              View All Products
+              Explore Products
             </MotionButton>
           </Link>
         </MotionFlex>

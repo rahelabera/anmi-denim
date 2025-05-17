@@ -332,9 +332,8 @@ export default function ProductsPage() {
             >
               {filteredProducts.map((product) => (
                 <MotionBox key={product.id} variants={itemVariants}>
-                  <Link href={`/products/${product.id}`} passHref>
+                  <Link href={`/products/${product.id}`} passHref legacyBehavior>
                     <MotionBox
-                      as="a"
                       borderWidth="1px"
                       borderRadius="lg"
                       overflow="hidden"
