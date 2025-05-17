@@ -77,12 +77,12 @@ export default function ContactPage() {
     {
       icon: FiMapPin,
       title: "Our Location",
-      content: "123 Denim Street, Fashion District, NY 10001",
+      content: "Addis Ababa, Ethiopia",
     },
     {
       icon: FiPhone,
       title: "Phone Number",
-      content: "+1 (555) 123-4567",
+      content: "+251950040844",
     },
     {
       icon: FiMail,
@@ -266,7 +266,7 @@ export default function ContactPage() {
             >
               <Box
                 as="iframe"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9663095343008!2d-74.0059418!3d40.7127847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Manhattan%2C%20New%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1680322790428!5m2!1sen!2sus"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126766.39636748118!2d38.6525298!3d9.010793!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b85cef5ab402d%3A0x8467b6b037a24d49!2sAddis%20Ababa%2C%20Ethiopia!5e0!3m2!1sen!2sus!4v1716042000000!5m2!1sen!2sus"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

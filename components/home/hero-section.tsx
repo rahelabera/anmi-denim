@@ -40,7 +40,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            Premium Denim Products
+            Crafted with Quality
           </MotionHeading>
           <MotionText
             color="white"
@@ -50,7 +50,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Crafted with quality and style for the modern lifestyle
+            Premium denim products made in Ethiopia for Ethiopians
           </MotionText>
           <MotionStack
             direction={{ base: "column", sm: "row" }}
@@ -74,7 +74,7 @@ export default function HeroSection() {
                 Explore Products
               </MotionButton>
             </Link>
-            <Link href="/contact" passHref>
+            <Link href="/about" passHref>
               <MotionButton
                 as="a"
                 variant="outline"
@@ -88,7 +88,7 @@ export default function HeroSection() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Contact Us
+                Our Story
               </MotionButton>
             </Link>
           </MotionStack>

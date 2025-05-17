@@ -32,8 +32,9 @@ export default function AboutSection() {
               About ANMI Denim
             </MotionHeading>
             <MotionText fontSize="lg" color="gray.700">
-              We are dedicated to creating high-quality denim products that combine traditional craftsmanship with
-              modern design. Our commitment to sustainability and ethical manufacturing sets us apart.
+              ANMI Denim was founded by Ananya and Mikias in 2024 in Addis Ababa, Ethiopia. We are dedicated to creating
+              high-quality denim products that combine traditional craftsmanship with modern design. Our commitment to
+              quality and Ethiopian craftsmanship sets us apart.
             </MotionText>
             <Link href="/about" passHref>
               <MotionBox

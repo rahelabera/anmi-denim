@@ -2,7 +2,7 @@
 
 import { Box, Container, Stack, SimpleGrid, Text, Link as ChakraLink, Image, IconButton } from "@chakra-ui/react"
 import Link from "next/link"
-import { FaTwitter, FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa"
+import { FaTwitter, FaFacebook, FaInstagram, FaTelegram, FaYoutube, FaLinkedin } from "react-icons/fa"
 import { motion } from "framer-motion"
 
 const MotionIconButton = motion(IconButton)
@@ -22,11 +22,12 @@ export default function Footer() {
                 fallbackSrc="/placeholder.svg?height=40&width=120"
               />
             </Box>
-            <Text fontSize="sm">Premium denim products for quality style. Crafted with care since 2010.</Text>
+            <Text fontSize="sm">Premium denim products made in Ethiopia. Crafted with quality since 2024.</Text>
             <Stack direction="row" spacing={6}>
               <MotionIconButton
                 as="a"
-                href="#"
+                href="https://x.com/anmidenim"
+                target="_blank"
                 aria-label="Twitter"
                 icon={<FaTwitter />}
                 size="md"
@@ -39,7 +40,8 @@ export default function Footer() {
               />
               <MotionIconButton
                 as="a"
-                href="#"
+                href="https://facebook.com/anmidenim"
+                target="_blank"
                 aria-label="Facebook"
                 icon={<FaFacebook />}
                 size="md"
@@ -52,7 +54,8 @@ export default function Footer() {
               />
               <MotionIconButton
                 as="a"
-                href="#"
+                href="https://instagram.com/anmidenim"
+                target="_blank"
                 aria-label="Instagram"
                 icon={<FaInstagram />}
                 size="md"
@@ -65,9 +68,38 @@ export default function Footer() {
               />
               <MotionIconButton
                 as="a"
-                href="#"
+                href="https://linkedin.com/company/anmidenim"
+                target="_blank"
                 aria-label="LinkedIn"
                 icon={<FaLinkedin />}
+                size="md"
+                color="white"
+                bg="brand.500"
+                _hover={{ bg: "brand.600" }}
+                rounded="full"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              />
+              <MotionIconButton
+                as="a"
+                href="https://t.me/anmidenim"
+                target="_blank"
+                aria-label="Telegram"
+                icon={<FaTelegram />}
+                size="md"
+                color="white"
+                bg="brand.500"
+                _hover={{ bg: "brand.600" }}
+                rounded="full"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              />
+              <MotionIconButton
+                as="a"
+                href="https://youtube.com/anmidenim"
+                target="_blank"
+                aria-label="YouTube"
+                icon={<FaYoutube />}
                 size="md"
                 color="white"
                 bg="brand.500"
@@ -102,32 +134,41 @@ export default function Footer() {
             <Link href="/products" passHref legacyBehavior>
               <ChakraLink _hover={{ color: "brand.500" }}>All Products</ChakraLink>
             </Link>
+            <Text fontWeight="500" fontSize="sm" mb={1} color="gray.400">
+              Denim Types
+            </Text>
+            <Link href="/products/denim-types/raw-denim" passHref legacyBehavior>
+              <ChakraLink _hover={{ color: "brand.500" }} pl={2} fontSize="sm">
+                Raw Denim
+              </ChakraLink>
+            </Link>
+            <Link href="/products/denim-types/selvage-denim" passHref legacyBehavior>
+              <ChakraLink _hover={{ color: "brand.500" }} pl={2} fontSize="sm">
+                Selvage Denim
+              </ChakraLink>
+            </Link>
+            <Text fontWeight="500" fontSize="sm" mb={1} mt={1} color="gray.400">
+              Colors
+            </Text>
             <Link href="/products/color/black" passHref legacyBehavior>
-              <ChakraLink _hover={{ color: "brand.500" }}>Black</ChakraLink>
+              <ChakraLink _hover={{ color: "brand.500" }} pl={2} fontSize="sm">
+                Black
+              </ChakraLink>
             </Link>
             <Link href="/products/color/blue" passHref legacyBehavior>
-              <ChakraLink _hover={{ color: "brand.500" }}>Blue</ChakraLink>
-            </Link>
-            <Link href="/products/style/slim" passHref legacyBehavior>
-              <ChakraLink _hover={{ color: "brand.500" }}>Slim</ChakraLink>
+              <ChakraLink _hover={{ color: "brand.500" }} pl={2} fontSize="sm">
+                Blue
+              </ChakraLink>
             </Link>
           </Stack>
           <Stack align="flex-start">
             <Text fontWeight="500" fontSize="lg" mb={2} color="white">
-              Support
+              Contact
             </Text>
-            <ChakraLink href="#" _hover={{ color: "brand.500" }}>
-              Help Center
-            </ChakraLink>
-            <ChakraLink href="#" _hover={{ color: "brand.500" }}>
-              Terms of Service
-            </ChakraLink>
-            <ChakraLink href="#" _hover={{ color: "brand.500" }}>
-              Privacy Policy
-            </ChakraLink>
-            <ChakraLink href="#" _hover={{ color: "brand.500" }}>
-              Shipping & Returns
-            </ChakraLink>
+            <Text>Phone: +251950040844</Text>
+            <Text>Email: info@anmidenim.com</Text>
+            <Text>Addis Ababa, Ethiopia</Text>
+            <Text>Website: Coming Soon</Text>
           </Stack>
         </SimpleGrid>
       </Container>
