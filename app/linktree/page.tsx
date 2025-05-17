@@ -10,7 +10,7 @@ const MotionButton = motion(Button)
 const socialLinks = [
   {
     name: "Website",
-    url: "https://anmidenim.com",
+    url: "https://anmi-denim.vercel.app/",
     icon: FaGlobe,
     color: "#E05038",
   },
