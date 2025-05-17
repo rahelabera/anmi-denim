@@ -30,6 +30,11 @@ import {
   Button,
   VStack,
   Divider,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerHeader,
+  DrawerBody,
 } from "@chakra-ui/react"
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, SearchIcon } from "@chakra-ui/icons"
 import Link from "next/link"
@@ -349,146 +354,159 @@ export default function Navbar() {
         </Flex>
 
         {isOpen && (
-          <MotionFlex
-            pb={4}
-            display={{ md: "none" }}
-            direction="column"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
+          <Drawer
+            isOpen={isOpen}
+            placement="left"
+            onClose={onClose}
+            size="xs" // Half screen on mobile
           >
-            <Stack as="nav" spacing={4}>
-              {Links.map((link) =>
-                link.hasDropdown ? (
-                  <Box key={link.name}>
-                    <Link href={link.href} passHref legacyBehavior>
-                      <ChakraLink
-                        px={2}
-                        py={1}
-                        fontWeight="medium"
-                        color={isProductsActive ? "#E05038" : "gray.600"}
-                        _hover={{
-                          textDecoration: "none",
-                          color: "#E05038",
-                        }}
-                      >
-                        {link.name}
-                      </ChakraLink>
-                    </Link>
-                    {/* Accordion for mobile */}
-                    <Box>
-                      {/* Color */}
-                      <Box
-                        fontWeight="bold"
-                        px={2}
-                        py={1}
-                        color="gray.500"
-                        cursor="pointer"
-                        bg={openSubDropdown === "Color" ? "gray.100" : "transparent"}
-                        onClick={() => setOpenSubDropdown(openSubDropdown === "Color" ? null : "Color")}
-                      >
-                        Color <ChevronDownIcon />
-                      </Box>
-                      {openSubDropdown === "Color" && (
-                        <Stack pl={4} spacing={1}>
-                          {productCategories.Color.map((item) => (
-                            <Link key={item.slug} href={`/products/${item.slug}`} passHref legacyBehavior>
-                              <ChakraLink
-                                px={2}
-                                py={1}
-                                fontSize="sm"
-                                fontWeight="medium"
-                                color={pathname === `/products/${item.slug}` ? "#E05038" : "gray.600"}
-                                _hover={{
-                                  textDecoration: "none",
-                                  color: "#E05038",
-                                }}
-                                onClick={onClose}
-                                position="relative"
-                                display="inline-block"
-                              >
-                                {item.name}
-                              </ChakraLink>
-                            </Link>
-                          ))}
-                        </Stack>
-                      )}
-                      {/* Style */}
-                      <Box
-                        fontWeight="bold"
-                        px={2}
-                        py={1}
-                        color="gray.500"
-                        cursor="pointer"
-                        bg={openSubDropdown === "Style" ? "gray.100" : "transparent"}
-                        onClick={() => setOpenSubDropdown(openSubDropdown === "Style" ? null : "Style")}
-                      >
-                        Style <ChevronDownIcon />
-                      </Box>
-                      {openSubDropdown === "Style" && (
-                        <Stack pl={4} spacing={1}>
-                          {productCategories.Style.map((item) => (
-                            <Link key={item.slug} href={`/products/${item.slug}`} passHref legacyBehavior>
-                              <ChakraLink
-                                px={2}
-                                py={1}
-                                fontSize="sm"
-                                fontWeight="medium"
-                                color={pathname === `/products/${item.slug}` ? "#E05038" : "gray.600"}
-                                _hover={{
-                                  textDecoration: "none",
-                                  color: "#E05038",
-                                }}
-                                onClick={onClose}
-                                position="relative"
-                                display="inline-block"
-                              >
-                                {item.name}
-                              </ChakraLink>
-                            </Link>
-                          ))}
-                        </Stack>
-                      )}
-                    </Box>
+            <DrawerOverlay />
+            <DrawerContent>
+              <DrawerHeader borderBottomWidth="1px">
+                <Flex justifyContent="space-between" alignItems="center">
+                  <Box fontSize="lg" fontWeight="bold">
+                    Menu
                   </Box>
-                ) : (
-                  <Link key={link.name} href={link.href} passHref legacyBehavior>
+                  <IconButton
+                    aria-label="Close Menu"
+                    icon={<CloseIcon />}
+                    onClick={onClose}
+                    variant="outline"
+                    colorScheme="gray"
+                  />
+                </Flex>
+              </DrawerHeader>
+              <DrawerBody>
+                <VStack spacing={4} align="stretch">
+                  {Links.map((link) =>
+                    link.hasDropdown ? (
+                      <Box key={link.name}>
+                        <Link href={link.href} passHref legacyBehavior>
+                          <ChakraLink
+                            px={2}
+                            py={2}
+                            fontWeight="medium"
+                            color={isProductsActive ? "#E05038" : "gray.600"}
+                            _hover={{
+                              textDecoration: "none",
+                              color: "#E05038",
+                            }}
+                          >
+                            {link.name}
+                          </ChakraLink>
+                        </Link>
+                        {/* Accordion for mobile */}
+                        <Box>
+                          {/* Color */}
+                          <Box
+                            fontWeight="bold"
+                            px={2}
+                            py={1}
+                            color="gray.500"
+                            cursor="pointer"
+                            bg={openSubDropdown === "Color" ? "gray.100" : "transparent"}
+                            onClick={() => setOpenSubDropdown(openSubDropdown === "Color" ? null : "Color")}
+                          >
+                            Color <ChevronDownIcon />
+                          </Box>
+                          {openSubDropdown === "Color" && (
+                            <Stack pl={4} spacing={1}>
+                              {productCategories.Color.map((item) => (
+                                <Link key={item.slug} href={`/products/${item.slug}`} passHref legacyBehavior>
+                                  <ChakraLink
+                                    px={2}
+                                    py={1}
+                                    fontSize="sm"
+                                    fontWeight="medium"
+                                    color={pathname === `/products/${item.slug}` ? "#E05038" : "gray.600"}
+                                    _hover={{
+                                      textDecoration: "none",
+                                      color: "#E05038",
+                                    }}
+                                    onClick={onClose}
+                                    position="relative"
+                                    display="inline-block"
+                                  >
+                                    {item.name}
+                                  </ChakraLink>
+                                </Link>
+                              ))}
+                            </Stack>
+                          )}
+                          {/* Style */}
+                          <Box
+                            fontWeight="bold"
+                            px={2}
+                            py={1}
+                            color="gray.500"
+                            cursor="pointer"
+                            bg={openSubDropdown === "Style" ? "gray.100" : "transparent"}
+                            onClick={() => setOpenSubDropdown(openSubDropdown === "Style" ? null : "Style")}
+                          >
+                            Style <ChevronDownIcon />
+                          </Box>
+                          {openSubDropdown === "Style" && (
+                            <Stack pl={4} spacing={1}>
+                              {productCategories.Style.map((item) => (
+                                <Link key={item.slug} href={`/products/${item.slug}`} passHref legacyBehavior>
+                                  <ChakraLink
+                                    px={2}
+                                    py={1}
+                                    fontSize="sm"
+                                    fontWeight="medium"
+                                    color={pathname === `/products/${item.slug}` ? "#E05038" : "gray.600"}
+                                    _hover={{
+                                      textDecoration: "none",
+                                      color: "#E05038",
+                                    }}
+                                    onClick={onClose}
+                                    position="relative"
+                                    display="inline-block"
+                                  >
+                                    {item.name}
+                                  </ChakraLink>
+                                </Link>
+                              ))}
+                            </Stack>
+                          )}
+                        </Box>
+                      </Box>
+                    ) : (
+                      <Link key={link.name} href={link.href} passHref legacyBehavior>
+                        <ChakraLink
+                          onClick={onClose} // <-- Close drawer on click
+                          px={2}
+                          py={2}
+                          fontWeight="medium"
+                          color={pathname === link.href ? "#E05038" : "gray.700"}
+                          _hover={{ color: "#E05038", textDecoration: "none" }}
+                          rounded="md"
+                          transition="all 0.2s"
+                        >
+                          {link.name}
+                        </ChakraLink>
+                      </Link>
+                    )
+                  )}
+                  <Link href="/contact" passHref legacyBehavior>
                     <ChakraLink
                       px={2}
-                      py={1}
-                      rounded="md"
+                      py={2}
                       fontWeight="medium"
-                      color={pathname === link.href ? "#E05038" : "gray.600"}
+                      color={pathname === "/contact" ? "#E05038" : "gray.600"}
                       _hover={{
                         textDecoration: "none",
                         color: "#E05038",
                       }}
                       onClick={onClose}
                     >
-                      {link.name}
+                      Contact Us
                     </ChakraLink>
                   </Link>
-                ),
-              )}
-              <Link href="/contact" passHref legacyBehavior>
-                <ChakraLink
-                  px={2}
-                  py={1}
-                  rounded="md"
-                  fontWeight="medium"
-                  color={pathname === "/contact" ? "#E05038" : "gray.600"}
-                  _hover={{
-                    textDecoration: "none",
-                    color: "#E05038",
-                  }}
-                  onClick={onClose}
-                >
-                  Contact Us
-                </ChakraLink>
-              </Link>
-            </Stack>
-          </MotionFlex>
+                </VStack>
+              </DrawerBody>
+            </DrawerContent>
+          </Drawer>
         )}
       </Container>
 

@@ -5,6 +5,13 @@ const inter = Inter({
   variable: "--font-inter",
 })
 
+export const metadata = {
+  title: "ANMI Denim",
+  icons: {
+    icon: "/logo.png", // or "/favicon.ico"
+  },
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">

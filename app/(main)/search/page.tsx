@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
-import Image from "next/image"
+import { Box, Container, Heading, Text, SimpleGrid, Skeleton, SkeletonText, Button, Badge, Flex, Image, Stack } from "@chakra-ui/react"
 import { searchProducts } from "@/lib/mock-data"
 
 export default function SearchPage() {
@@ -13,86 +13,118 @@ export default function SearchPage() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Simulate search API call
     setIsLoading(true)
     setTimeout(() => {
       if (!query) {
         setResults([])
       } else {
-        const filteredProducts = searchProducts(query);
+        const filteredProducts = searchProducts(query)
         setResults(filteredProducts)
       }
       setIsLoading(false)
-    }, 500) // Simulate network delay
+    }, 500)
   }, [query])
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="mb-8">
-        <Link href="/" className="text-primary hover:underline flex items-center mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
-          </svg>
+    <Container maxW="7xl" py={10}>
+      <Stack spacing={6} mb={8}>
+        <Button
+          as={Link}
+          href="/"
+          variant="ghost"
+          colorScheme="brand"
+          leftIcon={
+            <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
+            </svg>
+          }
+          alignSelf="flex-start"
+        >
           Back to Home
-        </Link>
-        <h1 className="text-3xl font-bold">
+        </Button>
+        <Heading as="h1" size="xl">
           {query ? `Search Results for "${query}"` : "Search Results"}
-        </h1>
-        <p className="text-gray-600 mt-2">
+        </Heading>
+        <Text color="gray.500" fontSize="lg">
           {isLoading
             ? "Searching..."
             : results.length > 0
               ? `Found ${results.length} result${results.length === 1 ? "" : "s"}`
               : "No results found. Try a different search term."}
-        </p>
-      </div>
+        </Text>
+      </Stack>
 
       {isLoading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={8}>
           {[1, 2, 3].map((i) => (
-            <div key={i} className="border rounded-lg h-[400px] bg-gray-100 animate-pulse"></div>
+            <Box key={i} borderWidth="1px" borderRadius="lg" overflow="hidden" p={4} bg="gray.50">
+              <Skeleton height="200px" mb={4} />
+              <SkeletonText mt="4" noOfLines={4} spacing="4" />
+            </Box>
           ))}
-        </div>
+        </SimpleGrid>
       ) : results.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={8}>
           {results.map((product) => (
-            <Link key={product.id} href={`/products/${product.id}`} className="block">
-              <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                <Image
-                  src={product.image || "/placeholder.svg"}
-                  alt={product.name}
-                  width={600}
-                  height={400}
-                  className="w-full h-64 object-cover"
-                />
-                <div className="p-4">
-                  <div className="flex justify-between items-start mb-2">
-                    <h2 className="text-xl font-semibold">{product.name}</h2>
-                    <span className="inline-block bg-primary/10 text-primary text-xs px-2 py-1 rounded">
-                      {product.category}
-                    </span>
-                  </div>
-                  <p className="text-gray-600 mb-4">{product.description}</p>
-                  <div className="flex justify-between items-center">
-                    <span className="font-bold text-lg">${product.price.toFixed(2)}</span>
-                    <span className="bg-primary text-white px-3 py-1 rounded text-sm">View Details</span>
-                  </div>
-                </div>
-              </div>
-            </Link>
+            <Box
+              as={Link}
+              href={`/products/${product.id}`}
+              key={product.id}
+              borderWidth="1px"
+              borderRadius="lg"
+              overflow="hidden"
+              _hover={{ boxShadow: "lg", textDecoration: "none" }}
+              transition="box-shadow 0.2s"
+              bg="white"
+            >
+              <Image
+                src={product.image || "/placeholder.svg"}
+                alt={product.name}
+                w="100%"
+                h="220px"
+                objectFit="cover"
+                fallbackSrc="/placeholder.svg"
+              />
+              <Box p={4}>
+                <Flex justify="space-between" align="flex-start" mb={2}>
+                  <Heading as="h2" size="md" noOfLines={1}>
+                    {product.name}
+                  </Heading>
+                  <Badge colorScheme="brand" fontSize="0.8em">
+                    {product.category}
+                  </Badge>
+                </Flex>
+                <Text color="gray.600" mb={4} noOfLines={2}>
+                  {product.description}
+                </Text>
+                <Flex justify="space-between" align="center">
+                  <Text fontWeight="bold" fontSize="lg">
+                    ${product.price.toFixed(2)}
+                  </Text>
+                  <Button colorScheme="brand" size="sm" as="span">
+                    View Details
+                  </Button>
+                </Flex>
+              </Box>
+            </Box>
           ))}
-        </div>
+        </SimpleGrid>
       ) : (
-        <div className="text-center py-12">
-          <p className="text-gray-600 mb-6">No products match your search criteria.</p>
-          <Link 
+        <Box textAlign="center" py={12}>
+          <Text color="gray.600" mb={6}>
+            No products match your search criteria.
+          </Text>
+          <Button
+            as={Link}
             href="/products"
-            className="bg-primary text-white px-6 py-2 rounded-lg inline-block hover:bg-primary/90 transition-colors"
+            colorScheme="brand"
+            size="lg"
+            px={8}
           >
             Browse All Products
-          </Link>
-        </div>
+          </Button>
+        </Box>
       )}
-    </div>
+    </Container>
   )
 }
