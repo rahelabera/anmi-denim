@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import {
   Box,
   Flex,
@@ -39,8 +38,8 @@ import {
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, SearchIcon } from "@chakra-ui/icons"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { motion } from "framer-motion"
-import { useState, useRef } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { useState, useRef, useEffect } from "react"
 
 const MotionBox = motion(Box)
 const MotionFlex = motion(Flex)
@@ -71,12 +70,18 @@ export default function Navbar() {
   const pathname = usePathname()
   const router = useRouter()
   const [searchTerm, setSearchTerm] = useState("")
-  const [activeCategory, setActiveCategory] = useState<string | null>(null) // For main popover
+  const [activeCategory, setActiveCategory] = useState<string | null>(null) // For desktop popover
   const [openSubDropdown, setOpenSubDropdown] = useState<string | null>(null) // For Color/Style
+  const [isProductsOpen, setIsProductsOpen] = useState(false) // For mobile Products toggle
   const searchInputRef = useRef<HTMLInputElement>(null)
 
   // Check if current path is products or any product category
   const isProductsActive = pathname === "/products" || pathname.startsWith("/products/")
+
+  // Sync underline animation with pathname changes
+  useEffect(() => {
+    // Force re-render to update MotionBox animations
+  }, [pathname])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -87,11 +92,20 @@ export default function Navbar() {
   }
 
   return (
-    <Box as="nav" bg="white" px={4} boxShadow="sm" position="sticky" top={0} zIndex={1000}>
+    <Box
+      as="nav"
+      bg="white"
+      px={4}
+      boxShadow="sm"
+      position="sticky"
+      top={0}
+      zIndex={1000}
+      aria-label="Main navigation"
+    >
       <Container maxW="container.xl">
         <Flex h={16} alignItems="center" justifyContent="space-between">
           <Link href="/" passHref legacyBehavior>
-            <Box as="a">
+            <Box as="a" aria-label="ANMI Denim Home">
               <Image
                 src="/logo.png"
                 alt="ANMI Denim Logo"
@@ -141,8 +155,9 @@ export default function Navbar() {
                             px={2}
                             py={1}
                             rounded="md"
-                            fontWeight="medium"
-                            color={isProductsActive ? "#E05038" : "gray.600"}
+                            fontWeight="semibold"
+                            fontSize="md"
+                            color={isProductsActive ? "#E05038" : "gray.700"}
                             _hover={{
                               textDecoration: "none",
                               color: "#E05038",
@@ -151,7 +166,11 @@ export default function Navbar() {
                             alignItems="center"
                           >
                             Products
-                            <ChevronDownIcon ml={1} />
+                            <ChevronDownIcon
+                              ml={1}
+                              transition="transform 0.2s"
+                              transform={activeCategory === "Products" ? "rotate(180deg)" : "rotate(0deg)"}
+                            />
                           </ChakraLink>
                           <MotionBox
                             position="absolute"
@@ -160,117 +179,150 @@ export default function Navbar() {
                             right={0}
                             height="2px"
                             bg="#E05038"
-                            initial={{ scaleX: isProductsActive ? 1 : 0 }}
-                            whileHover={{ scaleX: 1 }}
-                            transformOrigin="left"
+                            animate={{ scaleX: isProductsActive ? 1 : 0 }}
                             transition={{ duration: 0.3 }}
                           />
                         </MotionBox>
                       </Box>
                     </PopoverTrigger>
-                    <PopoverContent
-                      width="220px"
-                      _focus={{ boxShadow: "md" }}
-                      boxShadow="md"
-                      borderRadius="md"
-                      border="1px solid"
-                      borderColor="gray.200"
-                      p={0}
-                    >
-                      <PopoverArrow />
-                      <PopoverBody p={0}>
-                        <Stack spacing={0}>
-                          {/* Color Dropdown */}
-                          <Box>
-                            <Box
-                              fontWeight="medium"
-                              px={4}
-                              py={2}
-                              color="gray.700"
-                              bg={openSubDropdown === "Color" ? "gray.100" : "gray.50"}
-                              _hover={{ bg: "gray.100", color: "brand.500" }}
-                              cursor="pointer"
-                              transition="all 0.2s"
-                              onClick={() =>
-                                setOpenSubDropdown(openSubDropdown === "Color" ? null : "Color")
-                              }
-                            >
-                              Color <ChevronDownIcon ml={1} />
-                            </Box>
-                            {openSubDropdown === "Color" && (
-                              <Stack spacing={0} pl={4} bg="gray.50">
-                                {productCategories.Color.map((item) => (
-                                  <Link key={item.slug} href={`/products/${item.slug}`} passHref legacyBehavior>
-                                    <ChakraLink
-                                      display="block"
-                                      px={4}
-                                      py={2}
-                                      _hover={{
-                                        bg: "rgba(224, 80, 56, 0.05)",
-                                        color: "#E05038",
-                                        textDecoration: "none",
-                                      }}
-                                      color={pathname === `/products/${item.slug}` ? "#E05038" : "gray.700"}
+                    <AnimatePresence>
+                      {activeCategory === "Products" && (
+                        <MotionPopoverContent
+                          width="240px"
+                          boxShadow="lg"
+                          borderRadius="lg"
+                          border="none"
+                          bg="white"
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <PopoverArrow bg="white" />
+                          <PopoverBody p={0}>
+                            <Stack spacing={0}>
+                              {/* Color Dropdown */}
+                              <Box>
+                                <MotionBox
+                                  fontWeight="bold"
+                                  px={4}
+                                  py={3}
+                                  color="gray.800"
+                                  bg={openSubDropdown === "Color" ? "gray.50" : "white"}
+                                  _hover={{ bg: "gray.50", color: "#E05038" }}
+                                  cursor="pointer"
+                                  transition="all 0.2s"
+                                  onClick={() =>
+                                    setOpenSubDropdown(openSubDropdown === "Color" ? null : "Color")
+                                  }
+                                  whileHover={{ x: 2 }}
+                                >
+                                  Color <ChevronDownIcon ml={1} />
+                                </MotionBox>
+                                <AnimatePresence>
+                                  {openSubDropdown === "Color" && (
+                                    <MotionBox
+                                      initial={{ height: 0, opacity: 0 }}
+                                      animate={{ height: "auto", opacity: 1 }}
+                                      exit={{ height: 0, opacity: 0 }}
+                                      transition={{ duration: 0.2 }}
                                     >
-                                      {item.name}
-                                    </ChakraLink>
-                                  </Link>
-                                ))}
-                              </Stack>
-                            )}
-                          </Box>
-                          {/* Style Dropdown */}
-                          <Box>
-                            <Box
-                              fontWeight="medium"
-                              px={4}
-                              py={2}
-                              color="gray.700"
-                              bg={openSubDropdown === "Style" ? "gray.100" : "gray.50"}
-                              _hover={{ bg: "gray.100", color: "brand.500" }}
-                              cursor="pointer"
-                              transition="all 0.2s"
-                              onClick={() =>
-                                setOpenSubDropdown(openSubDropdown === "Style" ? null : "Style")
-                              }
-                            >
-                              Style <ChevronDownIcon ml={1} />
-                            </Box>
-                            {openSubDropdown === "Style" && (
-                              <Stack spacing={0} pl={4} bg="gray.50">
-                                {productCategories.Style.map((item) => (
-                                  <Link key={item.slug} href={`/products/${item.slug}`} passHref legacyBehavior>
-                                    <ChakraLink
-                                      display="block"
-                                      px={4}
-                                      py={2}
-                                      _hover={{
-                                        bg: "rgba(224, 80, 56, 0.05)",
-                                        color: "#E05038",
-                                        textDecoration: "none",
-                                      }}
-                                      color={pathname === `/products/${item.slug}` ? "#E05038" : "gray.700"}
+                                      <Stack spacing={0} pl={4} bg="white">
+                                        {productCategories.Color.map((item) => (
+                                          <Link key={item.slug} href={`/products/${item.slug}`} passHref legacyBehavior>
+                                            <ChakraLink
+                                              display="block"
+                                              px={4}
+                                              py={2}
+                                              fontSize="sm"
+                                              fontWeight="medium"
+                                              color={pathname === `/products/${item.slug}` ? "#E05038" : "gray.700"}
+                                              _hover={{
+                                                bg: "rgba(224, 80, 56, 0.1)",
+                                                color: "#E05038",
+                                                textDecoration: "none",
+                                              }}
+                                            >
+                                              {item.name}
+                                            </ChakraLink>
+                                          </Link>
+                                        ))}
+                                      </Stack>
+                                    </MotionBox>
+                                  )}
+                                </AnimatePresence>
+                              </Box>
+                              {/* Style Dropdown */}
+                              <Box>
+                                <MotionBox
+                                  fontWeight="bold"
+                                  px={4}
+                                  py={3}
+                                  color="gray.800"
+                                  bg={openSubDropdown === "Style" ? "gray.50" : "white"}
+                                  _hover={{ bg: "gray.50", color: "#E05038" }}
+                                  cursor="pointer"
+                                  transition="all 0.2s"
+                                  onClick={() =>
+                                    setOpenSubDropdown(openSubDropdown === "Style" ? null : "Style")
+                                  }
+                                  whileHover={{ x: 2 }}
+                                >
+                                  Style <ChevronDownIcon ml={1} />
+                                </MotionBox>
+                                <AnimatePresence>
+                                  {openSubDropdown === "Style" && (
+                                    <MotionBox
+                                      initial={{ height: 0, opacity: 0 }}
+                                      animate={{ height: "auto", opacity: 1 }}
+                                      exit={{ height: 0, opacity: 0 }}
+                                      transition={{ duration: 0.2 }}
                                     >
-                                      {item.name}
-                                    </ChakraLink>
-                                  </Link>
-                                ))}
-                              </Stack>
-                            )}
-                          </Box>
-                        </Stack>
-                      </PopoverBody>
-                    </PopoverContent>
+                                      <Stack spacing={0} pl={4} bg="white">
+                                        {productCategories.Style.map((item) => (
+                                          <Link key={item.slug} href={`/products/${item.slug}`} passHref legacyBehavior>
+                                            <ChakraLink
+                                              display="block"
+                                              px={4}
+                                              py={2}
+                                              fontSize="sm"
+                                              fontWeight="medium"
+                                              color={pathname === `/products/${item.slug}` ? "#E05038" : "gray.700"}
+                                              _hover={{
+                                                bg: "rgba(224, 80, 56, 0.1)",
+                                                color: "#E05038",
+                                                textDecoration: "none",
+                                              }}
+                                            >
+                                              {item.name}
+                                            </ChakraLink>
+                                          </Link>
+                                        ))}
+                                      </Stack>
+                                    </MotionBox>
+                                  )}
+                                </AnimatePresence>
+                              </Box>
+                            </Stack>
+                          </PopoverBody>
+                        </MotionPopoverContent>
+                      )}
+                    </AnimatePresence>
                   </Popover>
                 ) : (
                   <Link key={link.name} href={link.href} passHref legacyBehavior>
-                    <MotionBox position="relative" whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
+                    <MotionBox
+                      position="relative"
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.2 }}
+                    >
                       <ChakraLink
                         px={2}
                         py={1}
                         rounded="md"
-                        fontWeight="medium"
-                        color={pathname === link.href ? "#E05038" : "gray.600"}
+                        fontWeight="semibold"
+                        fontSize="md"
+                        color={pathname === link.href ? "#E05038" : "gray.700"}
                         _hover={{
                           textDecoration: "none",
                           color: "#E05038",
@@ -285,9 +337,7 @@ export default function Navbar() {
                         right={0}
                         height="2px"
                         bg="#E05038"
-                        initial={{ scaleX: pathname === link.href ? 1 : 0 }}
-                        whileHover={{ scaleX: 1 }}
-                        transformOrigin="left"
+                        animate={{ scaleX: pathname === link.href ? 1 : 0 }}
                         transition={{ duration: 0.3 }}
                       />
                     </MotionBox>
@@ -302,8 +352,9 @@ export default function Navbar() {
                     px={2}
                     py={1}
                     rounded="md"
-                    fontWeight="medium"
-                    color={pathname === "/contact" ? "#E05038" : "gray.600"}
+                    fontWeight="semibold"
+                    fontSize="md"
+                    color={pathname === "/contact" ? "#E05038" : "gray.700"}
                     _hover={{
                       textDecoration: "none",
                       color: "#E05038",
@@ -318,15 +369,13 @@ export default function Navbar() {
                     right={0}
                     height="2px"
                     bg="#E05038"
-                    initial={{ scaleX: pathname === "/contact" ? 1 : 0 }}
-                    whileHover={{ scaleX: 1 }}
-                    transformOrigin="left"
+                    animate={{ scaleX: pathname === "/contact" ? 1 : 0 }}
                     transition={{ duration: 0.3 }}
                   />
                 </MotionBox>
               </Link>
               <IconButton
-                aria-label="Search"
+                aria-label="Search ANMI Denim products"
                 icon={<SearchIcon />}
                 variant="ghost"
                 colorScheme="gray"
@@ -337,7 +386,7 @@ export default function Navbar() {
 
           <HStack display={{ base: "flex", md: "none" }}>
             <IconButton
-              aria-label="Search"
+              aria-label="Search ANMI Denim products"
               icon={<SearchIcon />}
               variant="ghost"
               colorScheme="gray"
@@ -347,8 +396,10 @@ export default function Navbar() {
             <IconButton
               size="md"
               icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-              aria-label="Open Menu"
+              aria-label={isOpen ? "Close Menu" : "Open Menu"}
               onClick={isOpen ? onClose : onOpen}
+              colorScheme="gray"
+              variant="ghost"
             />
           </HStack>
         </Flex>
@@ -358,130 +409,174 @@ export default function Navbar() {
             isOpen={isOpen}
             placement="left"
             onClose={onClose}
-            size="xs" // Half screen on mobile
+            size="xs"
           >
             <DrawerOverlay />
-            <DrawerContent>
-              <DrawerHeader borderBottomWidth="1px">
+            <DrawerContent bg="white" maxW="80vw">
+              <DrawerHeader borderBottomWidth="1px" py={3}>
                 <Flex justifyContent="space-between" alignItems="center">
-                  <Box fontSize="lg" fontWeight="bold">
-                    Menu
+                  <Box>
+                    <Image
+                      src="/logo.png"
+                      alt="ANMI Denim Logo"
+                      h="32px"
+                      objectFit="contain"
+                      fallbackSrc="/placeholder.svg?height=32&width=100"
+                    />
                   </Box>
                   <IconButton
                     aria-label="Close Menu"
                     icon={<CloseIcon />}
                     onClick={onClose}
-                    variant="outline"
+                    variant="ghost"
                     colorScheme="gray"
+                    size="sm"
                   />
                 </Flex>
               </DrawerHeader>
-              <DrawerBody>
-                <VStack spacing={4} align="stretch">
+              <DrawerBody px={4} py={4}>
+                <VStack spacing={3} align="stretch">
                   {Links.map((link) =>
                     link.hasDropdown ? (
                       <Box key={link.name}>
-                        <Link href={link.href} passHref legacyBehavior>
-                          <ChakraLink
-                            px={2}
-                            py={2}
-                            fontWeight="medium"
-                            color={isProductsActive ? "#E05038" : "gray.600"}
-                            _hover={{
-                              textDecoration: "none",
-                              color: "#E05038",
-                            }}
-                          >
-                            {link.name}
-                          </ChakraLink>
-                        </Link>
-                        {/* Accordion for mobile */}
-                        <Box>
-                          {/* Color */}
-                          <Box
-                            fontWeight="bold"
-                            px={2}
-                            py={1}
-                            color="gray.500"
-                            cursor="pointer"
-                            bg={openSubDropdown === "Color" ? "gray.100" : "transparent"}
-                            onClick={() => setOpenSubDropdown(openSubDropdown === "Color" ? null : "Color")}
-                          >
-                            Color <ChevronDownIcon />
+                        <MotionBox
+                          display="flex"
+                          alignItems="center"
+                          px={3}
+                          py={2}
+                          fontWeight="semibold"
+                          fontSize="md"
+                          color={isProductsActive ? "#E05038" : "gray.700"}
+                          _hover={{
+                            textDecoration: "none",
+                            color: "#E05038",
+                            bg: "gray.50",
+                          }}
+                          rounded="md"
+                          cursor="pointer"
+                          onClick={() => setIsProductsOpen(!isProductsOpen)}
+                          initial={{ opacity: 0.8 }}
+                          whileHover={{ opacity: 1 }}
+                        >
+                          <Text flex="1">{link.name}</Text>
+                          <ChevronDownIcon
+                            transform={isProductsOpen ? "rotate(180deg)" : "rotate(0deg)"}
+                            transition="transform 0.2s"
+                          />
+                        </MotionBox>
+                        {isProductsOpen && (
+                          <Box pl={3}>
+                            {/* Color Dropdown */}
+                            <MotionBox
+                              fontWeight="semibold"
+                              px={3}
+                              py={2}
+                              color="gray.600"
+                              bg={openSubDropdown === "Color" ? "gray.50" : "transparent"}
+                              _hover={{ bg: "gray.50", color: "#E05038" }}
+                              cursor="pointer"
+                              rounded="md"
+                              display="flex"
+                              alignItems="center"
+                              transition="all 0.2s"
+                              onClick={() =>
+                                setOpenSubDropdown(openSubDropdown === "Color" ? null : "Color")
+                              }
+                              initial={{ opacity: 0.8 }}
+                              whileHover={{ opacity: 1 }}
+                            >
+                              Color <ChevronDownIcon ml={1} />
+                            </MotionBox>
+                            {openSubDropdown === "Color" && (
+                              <Stack pl={5} spacing={1} mt={1}>
+                                {productCategories.Color.map((item) => (
+                                  <Link key={item.slug} href={`/products/${item.slug}`} passHref legacyBehavior>
+                                    <ChakraLink
+                                      px={3}
+                                      py={1}
+                                      fontSize="sm"
+                                      fontWeight="medium"
+                                      color={pathname === `/products/${item.slug}` ? "#E05038" : "gray.600"}
+                                      _hover={{
+                                        textDecoration: "none",
+                                        color: "#E05038",
+                                        bg: "gray.50",
+                                      }}
+                                      rounded="md"
+                                      display="block"
+                                      onClick={onClose}
+                                    >
+                                      {item.name}
+                                    </ChakraLink>
+                                  </Link>
+                                ))}
+                              </Stack>
+                            )}
+                            {/* Style Dropdown */}
+                            <MotionBox
+                              fontWeight="semibold"
+                              px={3}
+                              py={2}
+                              color="gray.600"
+                              bg={openSubDropdown === "Style" ? "gray.50" : "transparent"}
+                              _hover={{ bg: "gray.50", color: "#E05038" }}
+                              cursor="pointer"
+                              rounded="md"
+                              display="flex"
+                              alignItems="center"
+                              transition="all 0.2s"
+                              onClick={() =>
+                                setOpenSubDropdown(openSubDropdown === "Style" ? null : "Style")
+                              }
+                              initial={{ opacity: 0.8 }}
+                              whileHover={{ opacity: 1 }}
+                            >
+                              Style <ChevronDownIcon ml={1} />
+                            </MotionBox>
+                            {openSubDropdown === "Style" && (
+                              <Stack pl={5} spacing={1} mt={1}>
+                                {productCategories.Style.map((item) => (
+                                  <Link key={item.slug} href={`/products/${item.slug}`} passHref legacyBehavior>
+                                    <ChakraLink
+                                      px={3}
+                                      py={1}
+                                      fontSize="sm"
+                                      fontWeight="medium"
+                                      color={pathname === `/products/${item.slug}` ? "#E05038" : "gray.600"}
+                                      _hover={{
+                                        textDecoration: "none",
+                                        color: "#E05038",
+                                        bg: "gray.50",
+                                      }}
+                                      rounded="md"
+                                      display="block"
+                                      onClick={onClose}
+                                    >
+                                      {item.name}
+                                    </ChakraLink>
+                                  </Link>
+                                ))}
+                              </Stack>
+                            )}
                           </Box>
-                          {openSubDropdown === "Color" && (
-                            <Stack pl={4} spacing={1}>
-                              {productCategories.Color.map((item) => (
-                                <Link key={item.slug} href={`/products/${item.slug}`} passHref legacyBehavior>
-                                  <ChakraLink
-                                    px={2}
-                                    py={1}
-                                    fontSize="sm"
-                                    fontWeight="medium"
-                                    color={pathname === `/products/${item.slug}` ? "#E05038" : "gray.600"}
-                                    _hover={{
-                                      textDecoration: "none",
-                                      color: "#E05038",
-                                    }}
-                                    onClick={onClose}
-                                    position="relative"
-                                    display="inline-block"
-                                  >
-                                    {item.name}
-                                  </ChakraLink>
-                                </Link>
-                              ))}
-                            </Stack>
-                          )}
-                          {/* Style */}
-                          <Box
-                            fontWeight="bold"
-                            px={2}
-                            py={1}
-                            color="gray.500"
-                            cursor="pointer"
-                            bg={openSubDropdown === "Style" ? "gray.100" : "transparent"}
-                            onClick={() => setOpenSubDropdown(openSubDropdown === "Style" ? null : "Style")}
-                          >
-                            Style <ChevronDownIcon />
-                          </Box>
-                          {openSubDropdown === "Style" && (
-                            <Stack pl={4} spacing={1}>
-                              {productCategories.Style.map((item) => (
-                                <Link key={item.slug} href={`/products/${item.slug}`} passHref legacyBehavior>
-                                  <ChakraLink
-                                    px={2}
-                                    py={1}
-                                    fontSize="sm"
-                                    fontWeight="medium"
-                                    color={pathname === `/products/${item.slug}` ? "#E05038" : "gray.600"}
-                                    _hover={{
-                                      textDecoration: "none",
-                                      color: "#E05038",
-                                    }}
-                                    onClick={onClose}
-                                    position="relative"
-                                    display="inline-block"
-                                  >
-                                    {item.name}
-                                  </ChakraLink>
-                                </Link>
-                              ))}
-                            </Stack>
-                          )}
-                        </Box>
+                        )}
                       </Box>
                     ) : (
                       <Link key={link.name} href={link.href} passHref legacyBehavior>
                         <ChakraLink
-                          onClick={onClose} // <-- Close drawer on click
-                          px={2}
+                          px={3}
                           py={2}
-                          fontWeight="medium"
+                          fontWeight="semibold"
+                          fontSize="md"
                           color={pathname === link.href ? "#E05038" : "gray.700"}
-                          _hover={{ color: "#E05038", textDecoration: "none" }}
+                          _hover={{
+                            textDecoration: "none",
+                            color: "#E05038",
+                            bg: "gray.50",
+                          }}
                           rounded="md"
-                          transition="all 0.2s"
+                          display="block"
+                          onClick={onClose}
                         >
                           {link.name}
                         </ChakraLink>
@@ -490,14 +585,18 @@ export default function Navbar() {
                   )}
                   <Link href="/contact" passHref legacyBehavior>
                     <ChakraLink
-                      px={2}
+                      px={3}
                       py={2}
-                      fontWeight="medium"
-                      color={pathname === "/contact" ? "#E05038" : "gray.600"}
+                      fontWeight="semibold"
+                      fontSize="md"
+                      color={pathname === "/contact" ? "#E05038" : "gray.700"}
                       _hover={{
                         textDecoration: "none",
                         color: "#E05038",
+                        bg: "gray.50",
                       }}
+                      rounded="md"
+                      display="block"
                       onClick={onClose}
                     >
                       Contact Us
@@ -524,7 +623,7 @@ export default function Navbar() {
                 </InputLeftElement>
                 <Input
                   ref={searchInputRef}
-                  placeholder="Search for products, categories..."
+                  placeholder="Search for premium jeans, styles..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -541,28 +640,23 @@ export default function Navbar() {
             </Text>
             <VStack align="stretch" spacing={2}>
               <Link href="/products" passHref legacyBehavior>
-                <ChakraLink color="brand.500" onClick={onSearchClose}>
+                <ChakraLink color="#E05038" onClick={onSearchClose}>
                   All Products
                 </ChakraLink>
               </Link>
-              <Link href="/products/denim-types/raw-denim" passHref legacyBehavior>
-                <ChakraLink color="brand.500" onClick={onSearchClose}>
-                  Raw Denim
+              <Link href="/products/style/slim" passHref legacyBehavior>
+                <ChakraLink color="#E05038" onClick={onSearchClose}>
+                  Slim Fit Jeans
                 </ChakraLink>
               </Link>
-              <Link href="/products/denim-types/selvage-denim" passHref legacyBehavior>
-                <ChakraLink color="brand.500" onClick={onSearchClose}>
-                  Selvage Denim
+              <Link href="/products/style/straight" passHref legacyBehavior>
+                <ChakraLink color="#E05038" onClick={onSearchClose}>
+                  Straight Fit Jeans
                 </ChakraLink>
               </Link>
               <Link href="/products/color/black" passHref legacyBehavior>
-                <ChakraLink color="brand.500" onClick={onSearchClose}>
+                <ChakraLink color="#E05038" onClick={onSearchClose}>
                   Black Jeans
-                </ChakraLink>
-              </Link>
-              <Link href="/products/style/slim" passHref legacyBehavior>
-                <ChakraLink color="brand.500" onClick={onSearchClose}>
-                  Slim Fit Jeans
                 </ChakraLink>
               </Link>
             </VStack>
