@@ -17,24 +17,8 @@ const MotionBox = motion(Box);
 const MotionHeading = motion(Heading);
 const MotionText = motion(Text);
 
-// Shared sample products
+// Local sample data (baggy-only products)
 const products = [
-  {
-    id: "1",
-    name: "Black Slim Jeans",
-    category: "Black",
-    style: "Slim",
-    price: 1300,
-    image: "/slimblackfold.jpg",
-  },
-  {
-    id: "2",
-    name: "Blue Straight Jeans",
-    category: "Blue",
-    style: "Straight",
-    price: 1300,
-    image: "/straightfold.jpg",
-  },
   {
     id: "3",
     name: "Black Baggy Jeans",
@@ -42,22 +26,7 @@ const products = [
     style: "Baggy",
     price: 1300,
     image: "/slimblackfold.jpg",
-  },
-  {
-    id: "4",
-    name: "Blue Slim Jeans",
-    category: "Blue",
-    style: "Slim",
-    price: 1300,
-    image: "/slimbluefront.png",
-  },
-  {
-    id: "5",
-    name: "Black Straight Jeans",
-    category: "Black",
-    style: "Straight",
-    price: 1300,
-    image: "/slimblackfold.jpg",
+    description: "Relaxed baggy fit black jeans for maximum comfort.",
   },
   {
     id: "6",
@@ -66,10 +35,13 @@ const products = [
     style: "Baggy",
     price: 1300,
     image: "/straightfold.jpg",
+    description: "Relaxed baggy fit blue jeans for a casual style.",
   },
 ];
 
 export default function ProductsPage() {
+  const baggyProducts = products;
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
@@ -81,25 +53,19 @@ export default function ProductsPage() {
 
   return (
     <Box>
-      <MotionBox
-        bg="brand.500"
-        py={16}
-        color="white"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <Container maxW="container.xl">
-          <VStack spacing={4}>
-            <MotionHeading as="h1" size="2xl" textAlign="center">
-              Our Denim Collection
-            </MotionHeading>
-            <MotionText fontSize="lg" maxW="3xl" textAlign="center">
-              Explore our curated denim pieces — slim, straight and baggy fits.
-            </MotionText>
-          </VStack>
-        </Container>
-      </MotionBox>
+      
+      <MotionBox bg="brand.500" color="white" initial={{ opacity: 0 }} animate={{ opacity: 1 }} px={{ base: 2, md: 4 }}>
+                      {/* left-padded wrapper so header is closer to the viewport left edge */}
+                      <Box maxW="container.md" ml={0} py={{ base: 4, md: 6 }} textAlign="left">
+                        <MotionHeading as="h1" size="xl" mb={2} initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}>
+                          Baggy Jeans
+                        </MotionHeading>
+                        <Text fontSize="md" maxW="lg">
+                          Our baggy collection emphasizes comfort with a relaxed silhouette
+              ideal for casual wear.
+                        </Text>
+                      </Box>
+                    </MotionBox>
 
       <Container maxW="container.xl" py={10}>
         <MotionBox
@@ -110,7 +76,7 @@ export default function ProductsPage() {
           initial="hidden"
           animate="visible"
         >
-          {products.map((product) => (
+          {baggyProducts.map((product) => (
             <MotionBox
               key={product.id}
               variants={itemVariants}
@@ -142,6 +108,9 @@ export default function ProductsPage() {
                       <Text>•</Text>
                       <Text>{product.style}</Text>
                     </Flex>
+                    <Text noOfLines={2} mb={3} fontSize="sm">
+                      {product.description}
+                    </Text>
                     <Text fontWeight="bold" color="brand.500">
                       {product.price.toFixed(2)} ETB
                     </Text>
