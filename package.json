@@ -4,9 +4,11 @@
   "private": true,
   "homepage": "https://anmidenim.com",
   "scripts": {
-     "dev": "node server.js",
+     "dev": "next dev",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js"
+    "start": "NODE_ENV=production node server.js",
+    "lint": "eslint .",
+    "export": "next export"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",

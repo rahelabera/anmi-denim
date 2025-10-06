@@ -43,8 +43,9 @@ export default function AboutSection() {
               high-quality denim products that combine traditional craftsmanship with modern design. Our commitment to
               quality and Ethiopian craftsmanship sets us apart.
             </MotionText>
-            <Link href="/about" passHref legacyBehavior>
-              <MotionBox
+            <MotionBox
+                as={Link}
+                href="/about"
                 display="inline-flex"
                 alignItems="center"
                 color="brand.500"
@@ -52,12 +53,10 @@ export default function AboutSection() {
                 _hover={{ textDecoration: "underline" }}
                 whileHover={{ x: 5 }}
                 transition={{ duration: 0.2 }}
-                as="a"
               >
                 Learn more about us
                 <Icon as={FiArrowRight} ml={2} />
               </MotionBox>
-            </Link>
           </MotionStack>
           {/* <MotionBox
             position="relative"

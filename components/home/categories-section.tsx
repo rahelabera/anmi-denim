@@ -84,57 +84,57 @@ export default function CategoriesSection() {
                   transition={{ duration: 0.5, delay: 0.4 + categoryIndex * 0.1 + itemIndex * 0.1 }}
                   whileHover={{ y: -10 }}
                 >
-                  <Link href={`/products/${item.slug}`} passHref>
+                  <Box
+                    as={Link}
+                    href={`/products/${item.slug}`}
+                    position="relative"
+                    h="300px"
+                    borderRadius="lg"
+                    overflow="hidden"
+                    boxShadow="lg"
+                    transition="all 0.3s"
+                    _hover={{ boxShadow: "2xl" }}
+                  >
+                    <MotionImage
+                      src={item.image}
+                      alt={item.name}
+                      objectFit="cover"
+                      w="100%"
+                      h="100%"
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.5 }}
+                    />
                     <Box
-                      position="relative"
-                      h="300px"
-                      borderRadius="lg"
-                      overflow="hidden"
-                      boxShadow="lg"
-                      transition="all 0.3s"
-                      _hover={{ boxShadow: "2xl" }}
+                      position="absolute"
+                      inset={0}
+                      bg="blackAlpha.600"
+                      display="flex"
+                      flexDirection="column"
+                      justifyContent="flex-end"
+                      p={6}
                     >
-                      <MotionImage
-                        src={item.image}
-                        alt={item.name}
-                        objectFit="cover"
-                        w="100%"
-                        h="100%"
-                        whileHover={{ scale: 1.05 }}
-                        transition={{ duration: 0.5 }}
-                      />
-                      <Box
-                        position="absolute"
-                        inset={0}
-                        bg="blackAlpha.600"
-                        display="flex"
-                        flexDirection="column"
-                        justifyContent="flex-end"
-                        p={6}
+                      <MotionHeading
+                        color="white"
+                        size="lg"
+                        mb={2}
+                        textShadow="0px 2px 4px rgba(0, 0, 0, 0.3)"
+                        whileHover={{ color: "#E05038" }}
+                        transition={{ duration: 0.3 }}
                       >
-                        <MotionHeading
-                          color="white"
-                          size="lg"
-                          mb={2}
-                          textShadow="0px 2px 4px rgba(0, 0, 0, 0.3)"
-                          whileHover={{ color: "#E05038" }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          {item.name}
-                        </MotionHeading>
-                        <MotionFlex
-                          align="center"
-                          color="white"
-                          fontWeight="medium"
-                          whileHover={{ x: 5, color: "#E05038" }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <Text>Shop Now</Text>
-                          <Icon as={FiArrowRight} ml={2} />
-                        </MotionFlex>
-                      </Box>
+                        {item.name}
+                      </MotionHeading>
+                      <MotionFlex
+                        align="center"
+                        color="white"
+                        fontWeight="medium"
+                        whileHover={{ x: 5, color: "#E05038" }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <Text>Shop Now</Text>
+                        <Icon as={FiArrowRight} ml={2} />
+                      </MotionFlex>
                     </Box>
-                  </Link>
+                  </Box>
                 </MotionBox>
               ))}
             </SimpleGrid>

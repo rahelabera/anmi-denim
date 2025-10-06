@@ -60,8 +60,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <Link href="/products" passHref legacyBehavior>
-              <MotionButton
+            <MotionButton as={Link} href="/products"
                 colorScheme="brand"
                 rounded="md"
                 size="lg"
@@ -72,9 +71,7 @@ export default function HeroSection() {
               >
                 Explore Products
               </MotionButton>
-            </Link>
-            <Link href="/about" passHref legacyBehavior>
-              <MotionButton
+            <MotionButton as={Link} href="/about"
                 variant="outline"
                 rounded="md"
                 size="lg"
@@ -88,7 +85,6 @@ export default function HeroSection() {
               >
                 Our Story
               </MotionButton>
-            </Link>
           </MotionStack>
         </Stack>
       </Container>

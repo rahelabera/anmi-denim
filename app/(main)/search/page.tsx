@@ -18,8 +18,10 @@ export default function SearchPage() {
       if (!query) {
         setResults([])
       } else {
-        const filteredProducts = searchProducts(query)
-        setResults(filteredProducts)
+  const filteredProducts = searchProducts(query)
+  // Only show available products (mock data contains only jeans)
+  const availableJeans = filteredProducts.filter((p) => p.available)
+  setResults(availableJeans)
       }
       setIsLoading(false)
     }, 500)

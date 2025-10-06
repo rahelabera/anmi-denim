@@ -81,9 +81,8 @@ export default function ProductsPage() {
               variants={itemVariants}
               whileHover={{ translateY: -6 }}
             >
-              <Link href={`/products/${product.id}`} passHref>
+              <Link href={`/products/${product.id}`}>
                 <Box
-                  as="a"
                   display="block"
                   borderWidth="1px"
                   borderRadius="lg"

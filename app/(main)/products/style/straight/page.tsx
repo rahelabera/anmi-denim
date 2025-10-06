@@ -54,8 +54,8 @@ export default function ProductsPage() {
         <MotionBox as={SimpleGrid} columns={{ base: 1, sm: 2, md: 3 }} spacing={6} variants={containerVariants} initial="hidden" animate="visible">
           {straightProducts.map((product) => (
             <MotionBox key={product.id} variants={itemVariants} whileHover={{ translateY: -6 }}>
-              <Link href={`/products/${product.id}`} passHref>
-                <Box as="a" display="block" borderWidth="1px" borderRadius="lg" overflow="hidden">
+              <Link href={`/products/${product.id}`}>
+                <Box display="block" borderWidth="1px" borderRadius="lg" overflow="hidden">
                   <Box position="relative" h={{ base: "220px", md: "320px" }}>
                     <Image src={product.image} alt={product.name} objectFit="cover" width="100%" height="100%" />
                   </Box>

@@ -192,9 +192,9 @@ export function ProductCarousel() {
                       <Text fontWeight="bold" color="brand.500">
                         {product.price}
                       </Text>
-                      <Link href={`/products/${product.id}`} passHref legacyBehavior>
+                      <Link href={`/products/${product.id}`}>
                         <MotionBox whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                          <Button as="a" size="sm" colorScheme="brand" borderRadius="full">
+                          <Button size="sm" colorScheme="brand" borderRadius="full">
                             View
                           </Button>
                         </MotionBox>

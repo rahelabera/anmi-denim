@@ -123,12 +123,12 @@ export default function Footer() {
             <Text fontWeight="500" fontSize="lg" mb={2} color="white">
               Company
             </Text>
-            <Link href="/about" passHref legacyBehavior>
-              <ChakraLink _hover={{ color: "brand.500" }}>About Us</ChakraLink>
-            </Link>
-            <Link href="/contact" passHref legacyBehavior>
-              <ChakraLink _hover={{ color: "brand.500" }}>Contact Us</ChakraLink>
-            </Link>
+            <ChakraLink as={Link} href="/about" _hover={{ color: "brand.500" }}>
+              About Us
+            </ChakraLink>
+            <ChakraLink as={Link} href="/contact" _hover={{ color: "brand.500" }}>
+              Contact Us
+            </ChakraLink>
             <ChakraLink href="#" _hover={{ color: "brand.500" }}>
               Careers
             </ChakraLink>

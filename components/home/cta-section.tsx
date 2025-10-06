@@ -44,8 +44,7 @@ export default function CtaSection() {
               Join thousands of satisfied customers who have chosen ANMI Denim for their premium denim needs.
             </MotionText>
             <Box pt={4}>
-              <Link href="/contact" passHref legacyBehavior>
-                <MotionButton
+              <MotionButton as={Link} href="/contact"
                   variant="outline"
                   rounded="md"
                   size="lg"
@@ -61,7 +60,6 @@ export default function CtaSection() {
                 >
                   Contact Us Today
                 </MotionButton>
-              </Link>
             </Box>
           </Stack>
         </MotionBox>

@@ -104,17 +104,15 @@ export default function Navbar() {
     >
       <Container maxW="container.xl">
         <Flex h={16} alignItems="center" justifyContent="space-between">
-          <Link href="/" passHref legacyBehavior>
-            <Box as="a" aria-label="ANMI Denim Home">
-              <Image
-                src="/logo.png"
-                alt="ANMI Denim Logo"
-                h="40px"
-                objectFit="contain"
-                fallbackSrc="/placeholder.svg?height=40&width=120"
-              />
-            </Box>
-          </Link>
+          <Box as={Link} href="/" aria-label="ANMI Denim Home">
+            <Image
+              src="/logo.png"
+              alt="ANMI Denim Logo"
+              h="40px"
+              objectFit="contain"
+              fallbackSrc="/placeholder.svg?height=40&width=120"
+            />
+          </Box>
 
           <HStack
             spacing={8}
@@ -229,23 +227,24 @@ export default function Navbar() {
                                     >
                                       <Stack spacing={0} pl={4} bg="white">
                                         {productCategories.Color.map((item) => (
-                                          <Link key={item.slug} href={`/products/${item.slug}`} passHref legacyBehavior>
-                                            <ChakraLink
-                                              display="block"
-                                              px={4}
-                                              py={2}
-                                              fontSize="sm"
-                                              fontWeight="medium"
-                                              color={pathname === `/products/${item.slug}` ? "#E05038" : "gray.700"}
-                                              _hover={{
-                                                bg: "rgba(224, 80, 56, 0.1)",
-                                                color: "#E05038",
-                                                textDecoration: "none",
-                                              }}
-                                            >
-                                              {item.name}
-                                            </ChakraLink>
-                                          </Link>
+                                          <ChakraLink
+                                            key={item.slug}
+                                            as={Link}
+                                            href={`/products/${item.slug}`}
+                                            display="block"
+                                            px={4}
+                                            py={2}
+                                            fontSize="sm"
+                                            fontWeight="medium"
+                                            color={pathname === `/products/${item.slug}` ? "#E05038" : "gray.700"}
+                                            _hover={{
+                                              bg: "rgba(224, 80, 56, 0.1)",
+                                              color: "#E05038",
+                                              textDecoration: "none",
+                                            }}
+                                          >
+                                            {item.name}
+                                          </ChakraLink>
                                         ))}
                                       </Stack>
                                     </MotionBox>
@@ -280,23 +279,24 @@ export default function Navbar() {
                                     >
                                       <Stack spacing={0} pl={4} bg="white">
                                         {productCategories.Style.map((item) => (
-                                          <Link key={item.slug} href={`/products/${item.slug}`} passHref legacyBehavior>
-                                            <ChakraLink
-                                              display="block"
-                                              px={4}
-                                              py={2}
-                                              fontSize="sm"
-                                              fontWeight="medium"
-                                              color={pathname === `/products/${item.slug}` ? "#E05038" : "gray.700"}
-                                              _hover={{
-                                                bg: "rgba(224, 80, 56, 0.1)",
-                                                color: "#E05038",
-                                                textDecoration: "none",
-                                              }}
-                                            >
-                                              {item.name}
-                                            </ChakraLink>
-                                          </Link>
+                                          <ChakraLink
+                                            key={item.slug}
+                                            as={Link}
+                                            href={`/products/${item.slug}`}
+                                            display="block"
+                                            px={4}
+                                            py={2}
+                                            fontSize="sm"
+                                            fontWeight="medium"
+                                            color={pathname === `/products/${item.slug}` ? "#E05038" : "gray.700"}
+                                            _hover={{
+                                              bg: "rgba(224, 80, 56, 0.1)",
+                                              color: "#E05038",
+                                              textDecoration: "none",
+                                            }}
+                                          >
+                                            {item.name}
+                                          </ChakraLink>
                                         ))}
                                       </Stack>
                                     </MotionBox>
@@ -309,71 +309,50 @@ export default function Navbar() {
                       )}
                     </AnimatePresence>
                   </Popover>
-                ) : (
-                  <Link key={link.name} href={link.href} passHref legacyBehavior>
-                    <MotionBox
-                      position="relative"
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.2 }}
+                  ) : (
+                  <MotionBox
+                    key={link.name}
+                    position="relative"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <ChakraLink
+                      as={Link}
+                      href={link.href}
+                      px={2}
+                      py={1}
+                      rounded="md"
+                      fontWeight="semibold"
+                      fontSize="md"
+                      color={pathname === link.href ? "#E05038" : "gray.700"}
+                      _hover={{
+                        textDecoration: "none",
+                        color: "#E05038",
+                      }}
                     >
-                      <ChakraLink
-                        px={2}
-                        py={1}
-                        rounded="md"
-                        fontWeight="semibold"
-                        fontSize="md"
-                        color={pathname === link.href ? "#E05038" : "gray.700"}
-                        _hover={{
-                          textDecoration: "none",
-                          color: "#E05038",
-                        }}
-                      >
-                        {link.name}
-                      </ChakraLink>
-                      <MotionBox
-                        position="absolute"
-                        bottom="-2px"
-                        left={0}
-                        right={0}
-                        height="2px"
-                        bg="#E05038"
-                        animate={{ scaleX: pathname === link.href ? 1 : 0 }}
-                        transition={{ duration: 0.3 }}
-                      />
-                    </MotionBox>
-                  </Link>
+                      {link.name}
+                    </ChakraLink>
+                    <MotionBox
+                      position="absolute"
+                      bottom="-2px"
+                      left={0}
+                      right={0}
+                      height="2px"
+                      bg="#E05038"
+                      animate={{ scaleX: pathname === link.href ? 1 : 0 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </MotionBox>
                 ),
               )}
             </HStack>
             <HStack spacing={4}>
-              <Link href="/contact" passHref legacyBehavior>
-                <MotionBox position="relative" whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
-                  <ChakraLink
-                    px={2}
-                    py={1}
-                    rounded="md"
-                    fontWeight="semibold"
-                    fontSize="md"
-                    color={pathname === "/contact" ? "#E05038" : "gray.700"}
-                    _hover={{
-                      textDecoration: "none",
-                      color: "#E05038",
-                    }}
-                  >
-                    Contact Us
-                  </ChakraLink>
-                  <MotionBox
-                    position="absolute"
-                    bottom="-2px"
-                    left={0}
-                    right={0}
-                    height="2px"
-                    bg="#E05038"
-                    animate={{ scaleX: pathname === "/contact" ? 1 : 0 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </MotionBox>
-              </Link>
+              <MotionBox position="relative" whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
+                <ChakraLink as={Link} href="/contact" px={2} py={1} rounded="md" fontWeight="semibold" fontSize="md" color={pathname === "/contact" ? "#E05038" : "gray.700"} _hover={{ textDecoration: "none", color: "#E05038" }}>
+                  Contact Us
+                </ChakraLink>
+                <MotionBox position="absolute" bottom="-2px" left={0} right={0} height="2px" bg="#E05038" animate={{ scaleX: pathname === "/contact" ? 1 : 0 }} transition={{ duration: 0.3 }} />
+              </MotionBox>
               <IconButton
                 aria-label="Search ANMI Denim products"
                 icon={<SearchIcon />}

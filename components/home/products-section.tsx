@@ -83,7 +83,7 @@ export default function ProductsSection() {
               transition={{ duration: 0.5, delay: index * 0.2 }}
               whileHover={{ y: -10 }}
             >
-              <Link href={`/products/${product.id}`} passHref>
+              <Link href={`/products/${product.id}`}>
                 <Box
                   borderRadius="lg"
                   overflow="hidden"
@@ -167,7 +167,7 @@ export default function ProductsSection() {
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          <Link href="/products" passHref legacyBehavior>
+          <Link href="/products">
             <MotionButton
               size="lg"
               colorScheme="brand"

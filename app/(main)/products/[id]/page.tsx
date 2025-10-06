@@ -116,7 +116,7 @@ export default function ProductPage({ params }: ProductPageProps) {
   const input = getInputProps()
 
   if (!product) {
-    return (
+  return (
       <Container maxW="container.xl" py={16}>
         <Heading>Product Not Found</Heading>
         <Text mt={4}>The product you're looking for doesn't exist.</Text>
@@ -216,9 +216,8 @@ export default function ProductPage({ params }: ProductPageProps) {
             <Heading as="h1" size="xl" mb={2}>
               {product.name}
             </Heading>
-            <Link href={`/denim-types/${product.category.toLowerCase().replace(" ", "-")}`} passHref legacyBehavior>
+            <Link href={`/denim-types/${product.category.toLowerCase().replace(" ", "-")}`}>
               <Text
-                as="a"
                 color="brand.500"
                 fontWeight="medium"
                 mb={4}
@@ -347,8 +346,8 @@ export default function ProductPage({ params }: ProductPageProps) {
                   transition={{ duration: 0.5 }}
                   whileHover={{ y: -5, boxShadow: "xl" }}
                 >
-                  <Link href={`/products/${relatedProduct.id}`} passHref legacyBehavior>
-                    <Box as="a" borderWidth="1px" borderRadius="lg" overflow="hidden" bg="white">
+                  <Link href={`/products/${relatedProduct.id}`}>
+                    <Box borderWidth="1px" borderRadius="lg" overflow="hidden" bg="white">
                       <Box position="relative" h="200px">
                         <Image
                           src={relatedProduct.image || "/placeholder.svg"}

@@ -55,9 +55,9 @@ CREATE TABLE IF NOT EXISTS wholesale_inquiries (
 
 -- Insert sample products
 INSERT INTO products (id, name, description, price, image_url, category, featured) VALUES
-(UUID(), 'Classic Denim Jeans', 'Premium quality classic denim jeans with perfect fit and exceptional durability.', 89.99, '/placeholder.svg?height=400&width=600', 'Jeans', TRUE),
-(UUID(), 'Denim Jacket', 'Stylish denim jacket with modern design, perfect for casual and semi-formal occasions.', 129.99, '/placeholder.svg?height=400&width=600', 'Jackets', TRUE),
-(UUID(), 'Denim Skirt', 'Versatile denim skirt that combines comfort with contemporary fashion trends.', 69.99, '/placeholder.svg?height=400&width=600', 'Skirts', TRUE),
-(UUID(), 'Slim Fit Jeans', 'Modern slim fit jeans with stretch fabric for maximum comfort and style.', 94.99, '/placeholder.svg?height=400&width=600', 'Jeans', FALSE),
-(UUID(), 'Denim Shirt', 'Classic denim shirt that works great for casual and smart casual outfits.', 79.99, '/placeholder.svg?height=400&width=600', 'Shirts', FALSE),
-(UUID(), 'Denim Overalls', 'Comfortable and stylish denim overalls for a casual, relaxed look.', 109.99, '/placeholder.svg?height=400&width=600', 'Overalls', FALSE);
+(UUID(), 'Classic Denim Jeans', 'Premium quality classic denim jeans with perfect fit and exceptional durability.', 1300, '/placeholder.svg?height=400&width=600', 'Jeans', TRUE),
+(UUID(), 'Denim Jacket', 'Stylish denim jacket with modern design, perfect for casual and semi-formal occasions.', 1300, '/placeholder.svg?height=400&width=600', 'Jackets', TRUE),
+(UUID(), 'Denim Skirt', 'Versatile denim skirt that combines comfort with contemporary fashion trends.', 1300, '/placeholder.svg?height=400&width=600', 'Skirts', TRUE),
+(UUID(), 'Slim Fit Jeans', 'Modern slim fit jeans with stretch fabric for maximum comfort and style.', 1300, '/placeholder.svg?height=400&width=600', 'Jeans', FALSE),
+(UUID(), 'Denim Shirt', 'Classic denim shirt that works great for casual and smart casual outfits.', 1300, '/placeholder.svg?height=400&width=600', 'Shirts', FALSE),
+(UUID(), 'Denim Overalls', 'Comfortable and stylish denim overalls for a casual, relaxed look.', 1300, '/placeholder.svg?height=400&width=600', 'Overalls', FALSE);
