@@ -38,18 +38,6 @@ export default function ProductsPage() {
 
   return (
     <Box>
-      <MotionBox bg="brand.500" py={16} color="white" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-        <Container maxW="container.xl">
-          <VStack spacing={4}>
-            <MotionHeading as="h1" size="2xl" textAlign="center">
-              Straight Jeans
-            </MotionHeading>
-            <MotionText fontSize="lg" maxW="3xl" textAlign="center">
-              Our straight-fit collection focuses on timeless silhouettes with comfortable, reliable cuts — perfect for everyday wear.
-            </MotionText>
-          </VStack>
-        </Container>
-      </MotionBox>
       <MotionBox bg="brand.500" color="white" initial={{ opacity: 0 }} animate={{ opacity: 1 }} px={{ base: 2, md: 4 }}>
                 {/* left-padded wrapper so header is closer to the viewport left edge */}
                 <Box maxW="container.md" ml={0} py={{ base: 4, md: 6 }} textAlign="left">
